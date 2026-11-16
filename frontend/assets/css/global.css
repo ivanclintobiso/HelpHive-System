@@ -267,6 +267,6 @@ img {
 
     .footer-columns {
         gap: 40px;
-        padding: 0;
+        padding: 0; 
     }
 }
