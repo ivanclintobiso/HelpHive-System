@@ -1,0 +1,204 @@
+.hero {
+    min-height: 660px;
+    padding: 80px 60px;
+    background-color: #d9a62e;
+    background-image: url("../../images/temp-hero-pattern.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-card {
+    max-width: 720px;
+    padding: 40px 56px;
+    background-color: #ffffff;
+    border-radius: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.hero-welcome {
+    font-size: 1.4rem;
+}
+
+.hero-title {
+    margin: 4px 0 20px;
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.05;
+    text-transform: uppercase;
+}
+
+.hero-text {
+    margin-bottom: 24px;
+    font-size: 1.3rem;
+    line-height: 1.6;
+}
+
+
+.section-title {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.highlight {
+    color: #f5b82e;
+}
+
+
+.join-section {
+    padding: 60px 40px;
+}
+
+.join-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 48px;
+    max-width: 1000px;
+    margin: 40px auto 0;
+}
+
+.join-card {
+    position: relative;
+    padding: 40px 28px;
+    background-color: #efefef;
+    border: 1px solid #333333;
+    border-radius: 60px;
+    text-align: center;
+}
+
+.join-card:hover {
+    background-color: #e6e6e6;
+}
+
+.join-card-arrow {
+    position: absolute;
+    top: 20px;
+    right: 28px;
+    color: #5a9378;
+    font-size: 1.4rem;
+}
+
+.join-card-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 110px;
+    height: 110px;
+    margin: 0 auto 20px;
+    background-color: #f5b82e;
+    border-radius: 50%;
+}
+
+.join-card-icon img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.join-card h3 {
+    margin-bottom: 8px;
+    font-size: 1.1rem;
+}
+
+.join-card p {
+    font-size: 0.9rem;
+}
+
+
+.causes-section {
+    padding: 60px 40px;
+    background-color: #efefef;
+}
+
+.causes-subtitle {
+    margin-top: 8px;
+    text-align: center;
+}
+
+.cause-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    max-width: 1000px;
+    margin: 40px auto 0;
+}
+
+.cause-card {
+    overflow: hidden;
+    background-color: #ffffff;
+    border-radius: 40px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.cause-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.cause-body {
+    padding: 24px 28px 28px;
+}
+
+.cause-body h3 {
+    font-size: 1.1rem;
+}
+
+.cause-body p {
+    margin: 4px 0 14px;
+    font-size: 0.95rem;
+}
+
+
+.cta-section {
+    padding: 60px 40px;
+}
+
+.cta-box {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    background-color: #f5b82e;
+    border: 1px solid #333333;
+    border-radius: 50px;
+    text-align: center;
+}
+
+.cta-box h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.cta-box p {
+    margin: 4px 0 20px;
+}
+
+
+@media (max-width: 800px) {
+    .hero {
+        padding: 30px 16px;
+    }
+
+    .hero-card {
+        padding: 28px 24px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-text {
+        font-size: 1.05rem;
+    }
+
+    .section-title {
+        font-size: 1.6rem;
+    }
+
+    .join-cards,
+    .cause-cards {
+        grid-template-columns: 1fr;
+    }
+}
