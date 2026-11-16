@@ -1,0 +1,40 @@
+CREATE DATABASE IF NOT EXISTS helphive;
+
+USE helphive;
+
+CREATE TABLE IF NOT EXISTS organizations (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    logo VARCHAR(255) NOT NULL DEFAULT '',
+    organization_name VARCHAR(150) NOT NULL,
+    organization_type VARCHAR(100) NOT NULL,
+    about TEXT NOT NULL,
+    cause_areas VARCHAR(255) NOT NULL,
+    city_province VARCHAR(150) NOT NULL,
+    street_address VARCHAR(255) NOT NULL DEFAULT '',
+    email VARCHAR(150) NOT NULL,
+    contact_number VARCHAR(30) NOT NULL DEFAULT '',
+    website VARCHAR(255) NOT NULL DEFAULT '',
+    contact_name VARCHAR(150) NOT NULL,
+    position_role VARCHAR(100) NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'pending',
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(100) NOT NULL,
+    last_name VARCHAR(100) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    location VARCHAR(150) NOT NULL DEFAULT '',
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS contact_messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    full_name VARCHAR(150) NOT NULL,
+    email VARCHAR(150) NOT NULL,
+    subject VARCHAR(200) NOT NULL,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

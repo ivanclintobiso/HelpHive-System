@@ -1,0 +1,360 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&display=swap");
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+.contact-section {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    padding: 34px 20px;
+    background-color: #d9a62e;
+    background-image: url("../../images/temp-contact-pattern.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.contact-card {
+    width: 100%;
+    max-width: 1002px;
+    padding: 40px 52px 40px;
+    background-color: #ffffff;
+    border-radius: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.contact-card.leaving {
+    opacity: 0;
+    transform: translateY(-20px);
+}
+
+.contact-title {
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.contact-subtitle {
+    margin-top: 4px;
+    font-size: 0.85rem;
+    color: #666666;
+}
+
+.contact-line {
+    margin: 18px 0 0;
+    border: none;
+    border-top: 1px solid #555555;
+}
+
+
+.contact-group {
+    margin-top: 18px;
+}
+
+.contact-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #36414a;
+}
+
+.contact-input {
+    display: block;
+    width: 100%;
+    height: 47px;
+    padding: 0 16px;
+    background-color: #eeeeee;
+    border: 1px solid #555555;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: #1b2227;
+}
+
+.contact-input::placeholder {
+    color: #888888;
+}
+
+.contact-input:focus {
+    outline: none;
+    border-color: #5a9378;
+}
+
+.contact-textarea {
+    height: 90px;
+    padding: 14px 16px;
+    resize: none;
+}
+
+.contact-input.input-error {
+    background-color: #fdf3f3;
+    border-color: #d9534f;
+}
+
+.contact-button {
+    display: block;
+    width: 100%;
+    height: 50px;
+    margin-top: 19px;
+    background-color: #5a9378;
+    border: none;
+    border-radius: 25px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.contact-button:hover {
+    background-color: #4d8268;
+}
+
+
+.form-errors {
+    margin-top: 18px;
+    padding: 14px 18px;
+    background-color: #fdecec;
+    border: 1px solid #d9534f;
+    border-radius: 10px;
+    font-size: 0.8rem;
+    color: #b02a2a;
+}
+
+.form-errors ul {
+    padding-left: 18px;
+}
+
+
+.success-section {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    padding: 67px 20px 68px;
+    background-color: #fafafa;
+}
+
+.success-section::before {
+    content: "";
+    position: absolute;
+    top: 20px;
+    right: -160px;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+}
+
+.success-section::after {
+    content: "";
+    position: absolute;
+    bottom: -120px;
+    left: -100px;
+    width: 360px;
+    height: 360px;
+    border-radius: 50%;
+    background-color: #f2f2f2;
+}
+
+.success-card {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 990px;
+    padding: 37px 47px 31px;
+    background-color: #ffffff;
+    border-radius: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    animation: cardSlideIn 0.6s ease both;
+}
+
+.success-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    margin: 0 auto;
+    background-color: #e8f2ec;
+    border-radius: 50%;
+    font-size: 1.9rem;
+    color: #3a9b5c;
+    animation: iconPop 0.6s ease 0.3s both;
+}
+
+.success-title {
+    margin-top: 12px;
+    text-align: center;
+    font-size: 1.7rem;
+    font-weight: 600;
+}
+
+.success-text {
+    margin-top: 14px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #555555;
+}
+
+.success-card .contact-line {
+    margin-top: 22px;
+}
+
+.next-title {
+    margin-top: 19px;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.next-box {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    height: 48px;
+    margin-top: 22px;
+    padding: 0 18px;
+    border: 1px solid #333333;
+    border-radius: 18px;
+    animation: boxFadeIn 0.5s ease 0.5s both;
+}
+
+.next-box + .next-box {
+    margin-top: 24px;
+    animation-delay: 0.7s;
+}
+
+.next-box i {
+    font-size: 1.1rem;
+    color: #555555;
+}
+
+.next-box h3 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.next-box p {
+    font-size: 0.7rem;
+    line-height: 1.3;
+    color: #444444;
+}
+
+.success-button-green {
+    display: block;
+    width: 100%;
+    height: 44px;
+    margin-top: 23px;
+    background-color: #5a9378;
+    border-radius: 25px;
+    line-height: 44px;
+    text-align: center;
+    font-size: 0.85rem;
+    color: #ffffff;
+}
+
+.success-button-green:hover {
+    background-color: #4d8268;
+}
+
+.success-button-outline {
+    display: block;
+    width: 100%;
+    height: 44px;
+    margin-top: 12px;
+    background-color: #ffffff;
+    border: 1px solid #333333;
+    border-radius: 25px;
+    line-height: 42px;
+    text-align: center;
+    font-size: 0.85rem;
+}
+
+.success-button-outline:hover {
+    background-color: #f0f0f0;
+}
+
+
+@keyframes cardSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes iconPop {
+    0% {
+        opacity: 0;
+        transform: scale(0.3);
+    }
+
+    70% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes boxFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.simple-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 22px 105px 26px;
+    border-top: 1px solid #dddddd;
+    font-size: 0.7rem;
+    color: #555555;
+}
+
+
+@media (max-width: 800px) {
+    .contact-card {
+        padding: 30px 22px;
+        border-radius: 28px;
+    }
+
+    .success-card {
+        padding: 30px 22px;
+        border-radius: 28px;
+    }
+
+    .simple-footer {
+        flex-direction: column;
+        gap: 6px;
+        padding: 20px;
+        text-align: center;
+    }
+}

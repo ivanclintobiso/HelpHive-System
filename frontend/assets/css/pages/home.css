@@ -152,11 +152,11 @@
 
 
 .cta-section {
-    padding: 60px 40px;
+    padding: 60px 50px;
 }
 
 .cta-box {
-    max-width: 960px;
+    width: 80%;
     margin: 0 auto;
     padding: 40px 24px;
     background-color: #f5b82e;
@@ -200,5 +200,13 @@
     .join-cards,
     .cause-cards {
         grid-template-columns: 1fr;
+    }
+
+    .cta-section {
+        padding: 40px 16px;
+    }
+
+    .cta-box {
+        width: 100%;
     }
 }

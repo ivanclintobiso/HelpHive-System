@@ -3,9 +3,11 @@
     <div class="footer-top">
 
         <div class="footer-brand">
-            <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-logo-footer.png"
-                 alt="HelpHive logo"
-                 class="footer-logo">
+            <div class="footer-logo-box">
+                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/logo.png"
+                     alt="HelpHive logo"
+                     class="footer-logo">
+            </div>
 
             <p class="footer-tagline">Small Acts, Lasting Impact.</p>
 
@@ -21,7 +23,7 @@
             <div class="footer-column">
                 <h4>Get Involved</h4>
                 <a href="<?php echo BASE_URL; ?>/frontend/pages/search.php">Search Opportunities</a>
-                <a href="<?php echo BASE_URL; ?>/frontend/pages/organization/register-organization.php">Register Organization</a>
+                <a href="<?php echo BASE_URL; ?>/frontend/pages/organization/organization-intro.php">Register Organization</a>
             </div>
 
             <div class="footer-column">

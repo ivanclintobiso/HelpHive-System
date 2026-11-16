@@ -36,7 +36,7 @@ include __DIR__ . "/../components/header.php";
 
         <div class="join-cards">
 
-            <a href="<?php echo BASE_URL; ?>/frontend/pages/auth/signup.php" class="join-card">
+            <a href="<?php echo BASE_URL; ?>/frontend/pages/auth/signup.php" class="join-card open-signup">
                 <span class="join-card-arrow">&#8599;</span>
 
                 <div class="join-card-icon">
@@ -64,7 +64,7 @@ include __DIR__ . "/../components/header.php";
                 </p>
             </a>
 
-            <a href="<?php echo BASE_URL; ?>/frontend/pages/organization/register-organization.php" class="join-card">
+                <a href="<?php echo BASE_URL; ?>/frontend/pages/organization/organization-intro.php" class="join-card">
                 <span class="join-card-arrow">&#8599;</span>
 
                 <div class="join-card-icon">
