@@ -50,7 +50,7 @@ body.auth-open {
     font-family: inherit;
     font-size: 1.2rem;
     line-height: 20px;
-    color: #333333;
+    color: #3a4652;
     cursor: pointer;
 }
 
@@ -94,7 +94,7 @@ body.auth-open {
     text-align: center;
     font-size: 0.75rem;
     line-height: 1.3;
-    color: #444444;
+    color: #3a4652;
 }
 
 .auth-switch {
@@ -117,7 +117,7 @@ body.auth-open {
     height: 51px;
     margin-bottom: 10px;
     background-color: #efefef;
-    border: 1px solid #333333;
+    border: 1px solid #3a4652;
     border-radius: 10px;
     font-family: inherit;
     font-size: 0.95rem;
@@ -176,12 +176,12 @@ body.auth-open {
     width: 100%;
     height: 51px;
     padding: 0 20px;
-    background-color: #eeeeee;
-    border: 1px solid #333333;
+    background-color: #efefef;
+    border: 1px solid #3a4652;
     border-radius: 10px;
     font-family: inherit;
     font-size: 0.85rem;
-    color: #1b2227;
+    color: #1b2125;
 }
 
 .auth-input::placeholder {
@@ -191,7 +191,7 @@ body.auth-open {
 
 .auth-input:focus {
     outline: none;
-    border-color: #5a9378;
+    border-color: #5c9679;
 }
 
 .forgot-link {
@@ -213,7 +213,7 @@ body.auth-open {
     width: 100%;
     height: 52px;
     margin-top: 10px;
-    background-color: #5a9378;
+    background-color: #5c9679;
     border: none;
     border-radius: 10px;
     font-family: "Montserrat", Arial, sans-serif;
@@ -224,7 +224,7 @@ body.auth-open {
 }
 
 .auth-submit:hover {
-    background-color: #4d8268;
+    background-color: #4e8368;
 }
 
 .auth-terms {
@@ -232,7 +232,7 @@ body.auth-open {
     text-align: center;
     font-size: 0.75rem;
     line-height: 1.4;
-    color: #444444;
+    color: #3a4652;
 }
 
 .auth-terms a {

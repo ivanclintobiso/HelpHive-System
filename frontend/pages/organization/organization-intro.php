@@ -20,7 +20,7 @@ if (!$isLoggedIn) {
 
         <div class="intro-card">
 
-            <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-register-hero.png"
+            <img src="<?php echo BASE_URL; ?>/frontend/assets/images/bringyourcausetothehive-registerorganizationpage.png"
                  alt="Volunteers helping each other"
                  class="intro-card-image">
 
@@ -51,7 +51,7 @@ if (!$isLoggedIn) {
 
             <div class="why-card">
                 <div class="why-icon">
-                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-icon-find-volunteers.png"
+                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/findvolunteers-registerorganizationpage-png.png"
                          alt="Find volunteers icon">
                 </div>
                 <h3>Find Volunteers</h3>
@@ -60,7 +60,7 @@ if (!$isLoggedIn) {
 
             <div class="why-card">
                 <div class="why-icon">
-                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-icon-post-opportunities.png"
+                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/postoppurtunities-registerorganizationpage-png.png"
                          alt="Post opportunities icon">
                 </div>
                 <h3>Post Opportunities</h3>
@@ -69,7 +69,7 @@ if (!$isLoggedIn) {
 
             <div class="why-card">
                 <div class="why-icon">
-                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-icon-track-impact.png"
+                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/trackimpact-registerorganizationpage-png.png"
                          alt="Track impact icon">
                 </div>
                 <h3>Track Impact</h3>

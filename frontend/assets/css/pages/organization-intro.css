@@ -4,8 +4,8 @@
     justify-content: center;
     min-height: 760px;
     padding: 80px 40px;
-    background-color: #d9a62e;
-    background-image: url("../../images/temp-register-pattern.png");
+    background-color: #f4bd35;
+    background-image: url("../../images/backgroundintro-registerintroorgranization.png");
     background-size: cover;
     background-position: center;
 }
@@ -67,7 +67,7 @@
 .why-card {
     padding: 34px 20px;
     background-color: #efefef;
-    border: 1px solid #333333;
+    border: 1px solid #3a4652;
     border-radius: 60px;
     text-align: center;
 }
@@ -79,7 +79,7 @@
     width: 110px;
     height: 110px;
     margin: 0 auto 18px;
-    background-color: #f5bd35;
+    background-color: #f4bd35;
     border-radius: 50%;
 }
 
@@ -102,7 +102,7 @@
 
 .steps-section {
     padding: 50px 40px 50px;
-    background-color: #eeeeee;
+    background-color: #efefef;
 }
 
 .steps-list {
@@ -124,7 +124,7 @@
     flex-shrink: 0;
     width: 50px;
     height: 50px;
-    background-color: #f5bd35;
+    background-color: #f4bd35;
     border-radius: 50%;
     font-size: 1.1rem;
 }
@@ -148,8 +148,8 @@
     max-width: 955px;
     margin: 0 auto;
     padding: 40px 30px;
-    background-color: #f5bd35;
-    border: 1px solid #333333;
+    background-color: #f4bd35;
+    border: 1px solid #3a4652;
     border-radius: 50px;
     text-align: center;
 }
@@ -174,7 +174,7 @@
 }
 
 .community-button:hover {
-    background-color: #f0f0f0;
+    background-color: #e4e4e4;
 }
 
 

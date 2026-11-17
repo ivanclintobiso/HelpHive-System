@@ -21,7 +21,7 @@
     width: 100%;
     height: 517px;
     margin-top: 38px;
-    border: 1px solid #333333;
+    border: 1px solid #3a4652;
     border-radius: 40px;
     object-fit: cover;
 }
@@ -29,7 +29,7 @@
 
 .story-section {
     padding: 50px 40px;
-    background-color: #eeeeee;
+    background-color: #efefef;
 }
 
 .story-box {
@@ -102,7 +102,7 @@
     flex-shrink: 0;
     width: 80px;
     height: 80px;
-    background-color: #f5bd35;
+    background-color: #f4bd35;
     border-radius: 50%;
 }
 
@@ -126,7 +126,7 @@
 
 .values-section {
     padding: 60px 40px 70px;
-    background-color: #eeeeee;
+    background-color: #efefef;
 }
 
 .values-title {
@@ -175,8 +175,8 @@
     max-width: 955px;
     margin: 0 auto;
     padding: 44px 30px;
-    background-color: #f5bd35;
-    border: 1px solid #333333;
+    background-color: #f4bd35;
+    border: 1px solid #3a4652;
     border-radius: 50px;
     text-align: center;
 }
@@ -201,7 +201,7 @@
 }
 
 .about-cta-button:hover {
-    background-color: #f0f0f0;
+    background-color: #e4e4e4;
 }
 
 

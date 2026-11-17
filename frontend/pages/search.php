@@ -160,6 +160,15 @@ if ($totalResults == 1) {
 }
 
 include __DIR__ . "/../components/header.php";
+
+$savedIds = [];
+
+if ($isLoggedIn) {
+    include __DIR__ . "/../../backend/settings/connection-with-test-mode.php";
+    include __DIR__ . "/../../backend/database-queries/saved-opportunity-queries.php";
+
+    $savedIds = getSavedOpportunityIds($connection, $_SESSION["user_id"]);
+}
 ?>
 
 <form method="get" action="search.php" class="search-form">
@@ -167,7 +176,7 @@ include __DIR__ . "/../components/header.php";
     <div class="search-row">
 
         <div class="input-box keyword-box">
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <img src="<?php echo BASE_URL; ?>/frontend/assets/images/search-searchoppurtunitiespage.png" alt="" class="field-icon">
             <input type="text"
                    name="keyword"
                    value="<?php echo safe($keyword); ?>"
@@ -175,7 +184,7 @@ include __DIR__ . "/../components/header.php";
         </div>
 
         <div class="input-box location-box">
-            <i class="fa-solid fa-location-dot"></i>
+            <img src="<?php echo BASE_URL; ?>/frontend/assets/images/location-searchoppurtunitiespage.png" alt="" class="field-icon">
             <input type="text"
                    name="location"
                    id="location-input"
@@ -188,7 +197,7 @@ include __DIR__ . "/../components/header.php";
 
         <div class="filter-dropdown distance-dropdown">
             <button type="button" class="dropdown-button distance-button <?php if ($distance != "") { echo "has-selection"; } ?>">
-                <i class="fa-solid fa-bullseye"></i>
+                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/distance-searchoppurtunitiespage.png" alt="" class="field-icon">
                 <span><?php echo safe($distanceLabel); ?></span>
                 <i class="fa-solid fa-chevron-up chevron"></i>
             </button>
@@ -214,13 +223,13 @@ include __DIR__ . "/../components/header.php";
     <div class="filter-row">
 
         <div class="filters-label">
-            <i class="fa-solid fa-filter"></i>
+            <img src="<?php echo BASE_URL; ?>/frontend/assets/images/filters-searchoppurtunitiespage.png" alt="" class="filters-icon">
             <span>Filters</span>
         </div>
 
         <div class="filter-dropdown">
             <button type="button" class="dropdown-button <?php echo getChipClass($selectedLocationTypes); ?>">
-                <i class="fa-regular fa-building"></i>
+                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/locationtype-searchoppurtunitiespage.png" alt="" class="filter-icon">
                 <span>Location Type</span>
                 <i class="fa-solid fa-chevron-up chevron"></i>
             </button>
@@ -240,7 +249,7 @@ include __DIR__ . "/../components/header.php";
 
         <div class="filter-dropdown">
             <button type="button" class="dropdown-button <?php echo getChipClass($selectedCauses); ?>">
-                <i class="fa-regular fa-map"></i>
+                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/causeareas-searchoppurtunitiespage.png" alt="" class="filter-icon">
                 <span>Cause Areas</span>
                 <i class="fa-solid fa-chevron-up chevron"></i>
             </button>
@@ -260,7 +269,7 @@ include __DIR__ . "/../components/header.php";
 
         <div class="filter-dropdown">
             <button type="button" class="dropdown-button <?php echo getChipClass($selectedGoodFor); ?>">
-                <i class="fa-regular fa-user"></i>
+                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/goodfor-searchoppurtunitiespage.png" alt="" class="filter-icon">
                 <span>Good For</span>
                 <i class="fa-solid fa-chevron-up chevron"></i>
             </button>
@@ -280,7 +289,7 @@ include __DIR__ . "/../components/header.php";
 
         <div class="filter-dropdown">
             <button type="button" class="dropdown-button <?php echo getChipClass($selectedDurations); ?>">
-                <i class="fa-solid fa-hourglass-half"></i>
+                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/duration-searchoppurtunitiespage.png" alt="" class="filter-icon">
                 <span>Duration</span>
                 <i class="fa-solid fa-chevron-up chevron"></i>
             </button>
@@ -300,7 +309,7 @@ include __DIR__ . "/../components/header.php";
 
         <div class="filter-dropdown">
             <button type="button" class="dropdown-button <?php echo $dateClass; ?>">
-                <i class="fa-regular fa-calendar-days"></i>
+                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/date-searchoppurtunitiespage.png" alt="" class="filter-icon">
                 <span>Date</span>
                 <i class="fa-solid fa-chevron-up chevron"></i>
             </button>
@@ -315,7 +324,7 @@ include __DIR__ . "/../components/header.php";
 
         <div class="filter-dropdown">
             <button type="button" class="dropdown-button <?php echo getChipClass($selectedSkills); ?>">
-                <i class="fa-solid fa-table-cells-large"></i>
+                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/skills-searchoppurtunitiespage.png" alt="" class="filter-icon">
                 <span>Skills</span>
                 <i class="fa-solid fa-chevron-up chevron"></i>
             </button>
@@ -365,11 +374,20 @@ include __DIR__ . "/../components/header.php";
 
             <div class="card-body">
 
+                <?php
+                    $bookmarkClass = "bookmark-button";
+
+                    if (in_array($opportunity["id"], $savedIds)) {
+                        $bookmarkClass = "bookmark-button saved";
+                    }
+                ?>
+
                 <button type="button"
-                        class="bookmark-button"
+                        class="<?php echo $bookmarkClass; ?>"
                         data-id="<?php echo $opportunity["id"]; ?>"
+                        data-url="<?php echo BASE_URL; ?>/backend/form-actions/save-opportunity-action.php"
                         title="Save opportunity">
-                    <i class="fa-regular fa-bookmark"></i>
+                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/saveoppurtunity-searchoppurtunitiespage.png" alt="" class="bookmark-icon">
                 </button>
 
                 <h3 class="card-title">
@@ -397,22 +415,22 @@ include __DIR__ . "/../components/header.php";
                     <?php } ?>
 
                     <span class="tag">
-                        <i class="fa-solid fa-location-dot"></i>
+                        <img src="<?php echo BASE_URL; ?>/frontend/assets/images/location-searchoppurtunitiespage.png" alt="" class="tag-icon">
                         <?php echo safe($opportunity["city"]); ?>
                     </span>
 
                     <span class="tag">
-                        <i class="fa-regular fa-calendar"></i>
+                        <img src="<?php echo BASE_URL; ?>/frontend/assets/images/date-searchoppurtunitiespage.png" alt="" class="tag-icon">
                         <?php echo safe($opportunity["date_text"]); ?>
                     </span>
 
                     <span class="tag">
-                        <i class="fa-regular fa-user"></i>
+                        <img src="<?php echo BASE_URL; ?>/frontend/assets/images/goodfor-searchoppurtunitiespage.png" alt="" class="tag-icon">
                         Good for <?php echo safe($opportunity["good_for"]); ?>
                     </span>
 
                     <span class="tag">
-                        <i class="fa-solid fa-hourglass-half"></i>
+                        <img src="<?php echo BASE_URL; ?>/frontend/assets/images/duration-searchoppurtunitiespage.png" alt="" class="tag-icon">
                         <?php echo $durationOptions[$opportunity["duration"]]; ?>
                     </span>
 

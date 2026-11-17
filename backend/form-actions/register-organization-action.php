@@ -2,11 +2,17 @@
 session_start();
 
 include __DIR__ . "/../settings/app-settings.php";
-include __DIR__ . "/../settings/database-connection.php";
+include __DIR__ . "/../settings/connection-with-test-mode.php";
 include __DIR__ . "/../database-queries/organization-queries.php";
+include __DIR__ . "/../database-queries/notification-queries.php";
 
 $registerPage = BASE_URL . "/frontend/pages/organization/register-organization.php";
 $submittedPage = BASE_URL . "/frontend/pages/organization/organization-submitted.php";
+
+if (!isset($_SESSION["user_id"])) {
+    header("Location: " . BASE_URL . "/frontend/pages/home.php?auth=login");
+    exit;
+}
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
     header("Location: " . $registerPage);
@@ -163,6 +169,7 @@ if ($hasLogo) {
 
 
 $organization = [
+    "user_id" => $_SESSION["user_id"],
     "logo" => $logoFileName,
     "organization_name" => $organizationName,
     "organization_type" => $organizationType,
@@ -180,8 +187,9 @@ $organization = [
 $isSaved = saveOrganization($connection, $organization);
 
 if ($isSaved) {
+    createNotification($connection, $_SESSION["user_id"], "organization_submitted", "Organization submitted", "Your organization " . $organizationName . " was submitted for review.");
+
     header("Location: " . $submittedPage);
-    exit;
 }
 
 $_SESSION["organization_errors"] = ["Something went wrong while saving. Please try again."];

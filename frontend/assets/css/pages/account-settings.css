@@ -1,0 +1,260 @@
+.settings-card {
+    margin-top: 22px;
+    padding: 4px 22px;
+    background-color: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+}
+
+.settings-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+    padding: 22px 0;
+    background: none;
+    border: none;
+    font-family: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
+.settings-row-static {
+    cursor: default;
+}
+
+.settings-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    background-color: #efefef;
+    border-radius: 10px;
+    color: #3a4652;
+    font-size: 0.95rem;
+}
+
+.settings-text {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.settings-text strong {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #1b2125;
+}
+
+.settings-text span {
+    font-size: 0.8rem;
+    color: #3a4652;
+}
+
+.settings-chevron {
+    color: #1b2125;
+    font-size: 0.9rem;
+    transition: transform 0.2s;
+}
+
+.settings-row.open .settings-chevron {
+    transform: rotate(90deg);
+}
+
+.settings-line {
+    border: none;
+    border-top: 1px solid #777777;
+}
+
+
+.password-form {
+    display: none;
+    flex-direction: column;
+    padding-bottom: 22px;
+}
+
+.password-form.open {
+    display: flex;
+}
+
+.password-form label {
+    margin: 20px 0 7px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    line-height: 1.5;
+    color: #1b2125;
+}
+
+.password-box {
+    position: relative;
+}
+
+.password-form input {
+    display: block;
+    width: 100%;
+    height: 42px;
+    padding: 0 48px 0 16px;
+    background-color: #efefef;
+    border: 1px solid #3a4652;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: #1b2125;
+}
+
+.password-form input:focus {
+    outline: none;
+    border-color: #5c9679;
+}
+
+.eye-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 48px;
+    height: 42px;
+    background: none;
+    border: none;
+    font-size: 0.9rem;
+    color: #3a4652;
+    cursor: pointer;
+}
+
+.change-password-button {
+    display: block;
+    width: 100%;
+    height: 40px;
+    margin-top: 18px;
+    background-color: #f4bd35;
+    border: none;
+    border-radius: 30px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #1b2125;
+    cursor: pointer;
+}
+
+.change-password-button:hover {
+    background-color: #dca62c;
+}
+
+
+.settings-message {
+    margin-top: 18px;
+    padding: 10px 16px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+}
+
+.settings-error {
+    margin: 0 0 8px;
+    padding-left: 32px;
+    background-color: #fde8e8;
+    color: #b42318;
+}
+
+
+.switch {
+    position: relative;
+    display: inline-block;
+    flex-shrink: 0;
+    width: 40px;
+    height: 20px;
+}
+
+.switch input {
+    width: 0;
+    height: 0;
+    opacity: 0;
+}
+
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #dcdcdc;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: #3a4652;
+    transition: transform 0.2s;
+}
+
+.switch input:checked + .slider {
+    background-color: #5c9679;
+}
+
+.switch input:checked + .slider::before {
+    background-color: #ffffff;
+    transform: translateX(18px);
+}
+
+
+.success-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.35);
+    z-index: 500;
+    transition: opacity 0.3s;
+}
+
+.success-overlay.hide {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.success-card {
+    width: 100%;
+    max-width: 520px;
+    padding: 32px 30px 30px;
+    background-color: #ffffff;
+    border-radius: 32px;
+    text-align: center;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.25);
+}
+
+.success-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background-color: #e6f4ea;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    color: #2e9b55;
+}
+
+.success-title {
+    margin-top: 18px;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.success-text {
+    margin-top: 10px;
+    font-size: 0.78rem;
+    color: #3a4652;
+}

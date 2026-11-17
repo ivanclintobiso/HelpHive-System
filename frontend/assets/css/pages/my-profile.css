@@ -1,0 +1,402 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap");
+
+
+.account-main .page-title {
+    font-family: "Montserrat", Arial, sans-serif;
+    font-weight: 700;
+}
+
+
+.profile-message {
+    margin-top: 20px;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-size: 0.8rem;
+}
+
+.profile-success {
+    background-color: #e6f4ea;
+    border: 1px solid #1f7a3a;
+    color: #1f7a3a;
+}
+
+.profile-error {
+    background-color: #fdeeee;
+    border: 1px solid #d9534f;
+    color: #a12622;
+}
+
+.profile-error ul {
+    margin-left: 18px;
+}
+
+
+.profile-card {
+    margin-top: 20px;
+    padding: 22px 22px 28px;
+    background-color: #ffffff;
+    border-radius: 14px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22);
+}
+
+.card-line {
+    margin: 19px 0;
+    border: none;
+    border-top: 1px solid #3a4652;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 29px;
+}
+
+.card-title {
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.card-note {
+    margin-top: 4px;
+    font-size: 0.65rem;
+    color: #3a4652;
+}
+
+.outline-button {
+    height: 29px;
+    padding: 0 20px;
+    background-color: #ffffff;
+    border: 1px solid #3a4652;
+    border-radius: 30px;
+    font-family: inherit;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: #1b2125;
+    cursor: pointer;
+}
+
+.outline-button:hover {
+    background-color: #e4e4e4;
+}
+
+
+.profile-top {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.profile-avatar {
+    flex-shrink: 0;
+    width: 69px;
+    height: 69px;
+    overflow: hidden;
+    background-color: #d9d9d9;
+    border-radius: 50%;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-info {
+    flex: 1;
+}
+
+.profile-name {
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.profile-role {
+    margin-top: 2px;
+    font-size: 0.82rem;
+}
+
+.profile-since {
+    margin-top: 3px;
+    font-size: 0.7rem;
+    color: #3a4652;
+}
+
+.name-pencil {
+    display: none;
+    margin-left: 8px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.profile-form.editing .name-pencil {
+    display: inline;
+}
+
+
+.profile-stats {
+    display: flex;
+    padding-bottom: 6px;
+}
+
+.stat {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 14px;
+}
+
+.stat + .stat {
+    padding-left: 23px;
+    border-left: 1px solid #e3e3e3;
+}
+
+.stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    background-color: #f4bd35;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #1b2125;
+}
+
+.stat-label {
+    font-size: 0.7rem;
+    color: #3a4652;
+}
+
+.stat-value {
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 32px;
+    row-gap: 20px;
+    margin-top: 21px;
+}
+
+.form-field {
+    margin-top: 0;
+}
+
+.card-note + .form-field {
+    margin-top: 19px;
+}
+
+.card-title + .profile-grid {
+    margin-top: 19px;
+}
+
+.field-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.field-box {
+    position: relative;
+}
+
+.field-input {
+    display: block;
+    width: 100%;
+    height: 46px;
+    padding: 0 16px;
+    background-color: #ffffff;
+    border: 1px solid #3a4652;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    color: #1b2125;
+}
+
+.field-input::placeholder {
+    color: transparent;
+}
+
+.field-input:focus {
+    outline: none;
+    border-color: #5c9679;
+}
+
+.field-pencil {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: 18px;
+    transform: translateY(-50%);
+    font-size: 0.8rem;
+    color: #3a4652;
+    pointer-events: none;
+}
+
+.profile-form.editing .field-input {
+    padding-right: 46px;
+    background-color: #efefef;
+}
+
+.profile-form.editing .field-input::placeholder {
+    color: #888888;
+}
+
+.profile-form.editing .field-pencil {
+    display: block;
+}
+
+
+.save-bar {
+    display: none;
+    gap: 12px;
+    margin-top: 26px;
+}
+
+.profile-form.editing .save-bar {
+    display: flex;
+}
+
+.save-button,
+.cancel-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 42px;
+    padding: 0 30px;
+    border-radius: 30px;
+    font-family: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.save-button {
+    background-color: #f4bd35;
+    border: 1px solid #f4bd35;
+    color: #1b2125;
+}
+
+.save-button:hover {
+    background-color: #dca62c;
+}
+
+.cancel-button {
+    background-color: #ffffff;
+    border: 1px solid #3a4652;
+    color: #1b2125;
+}
+
+.cancel-button:hover {
+    background-color: #e4e4e4;
+}
+
+
+.history-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 20px 0;
+}
+
+.card-note + .history-row {
+    margin-top: 0;
+}
+
+.history-row + .history-row {
+    border-top: 1px solid #666666;
+}
+
+.history-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background-color: #e8f3ec;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #3a4652;
+}
+
+.history-text {
+    flex: 1;
+}
+
+.history-text h3 {
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+.history-text p {
+    font-size: 0.7rem;
+    color: #3a4652;
+}
+
+.history-chip {
+    padding: 4px 13px;
+    background-color: #e6f4ea;
+    border-radius: 20px;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: #1f7a3a;
+}
+
+.history-footnote {
+    font-size: 0.62rem;
+    color: #3a4652;
+}
+
+
+.empty-state {
+    padding: 40px 20px 20px;
+    text-align: center;
+}
+
+.empty-state p {
+    margin: 6px 0 16px;
+    color: #3a4652;
+}
+
+.empty-link {
+    color: #5c9679;
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+
+@media (max-width: 800px) {
+    .profile-top {
+        flex-wrap: wrap;
+    }
+
+    .profile-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-stats {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .stat + .stat {
+        padding-left: 0;
+        border-left: none;
+    }
+}

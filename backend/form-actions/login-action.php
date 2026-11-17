@@ -116,6 +116,8 @@ session_regenerate_id(true);
 if ($isTestAccount) {
     $_SESSION["user_id"] = TEST_ACCOUNT_ID;
     $_SESSION["user_name"] = "Test";
+    $_SESSION["is_test_account"] = true;
+    $_SESSION["test_has_applications"] = TEST_ACCOUNT_HAS_APPLICATIONS;
 } else {
     $_SESSION["user_id"] = $user["id"];
     $_SESSION["user_name"] = $user["first_name"];

@@ -38,3 +38,69 @@ CREATE TABLE IF NOT EXISTS contact_messages (
     message TEXT NOT NULL,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS saved_opportunities (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    opportunity_id INT NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY unique_saved (user_id, opportunity_id)
+);
+
+CREATE TABLE IF NOT EXISTS applications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    opportunity_id INT NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'pending',
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+USE helphive;
+
+ALTER TABLE organizations ADD COLUMN user_id INT NOT NULL DEFAULT 0 AFTER id;
+
+ALTER TABLE applications ADD COLUMN attendance VARCHAR(20) NOT NULL DEFAULT 'not_recorded';
+ALTER TABLE applications ADD COLUMN volunteer_hours DECIMAL(4,1) NOT NULL DEFAULT 0;
+ALTER TABLE applications ADD COLUMN hours_verified TINYINT NOT NULL DEFAULT 0;
+ALTER TABLE applications ADD COLUMN correction_requested TINYINT NOT NULL DEFAULT 0;
+
+CREATE TABLE IF NOT EXISTS opportunities (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    organization_id INT NOT NULL,
+    image VARCHAR(255) NOT NULL DEFAULT '',
+    title VARCHAR(150) NOT NULL,
+    cause VARCHAR(100) NOT NULL DEFAULT '',
+    short_description VARCHAR(255) NOT NULL DEFAULT '',
+    about TEXT NOT NULL,
+    what_youll_do TEXT NOT NULL,
+    activity_date DATE NULL,
+    location_type VARCHAR(20) NOT NULL DEFAULT '',
+    start_time TIME NULL,
+    end_time TIME NULL,
+    location VARCHAR(255) NOT NULL DEFAULT '',
+    volunteers_needed INT NOT NULL DEFAULT 0,
+    good_for VARCHAR(255) NOT NULL DEFAULT '',
+    duration VARCHAR(30) NOT NULL DEFAULT '',
+    skills VARCHAR(255) NOT NULL DEFAULT '',
+    instructions TEXT NOT NULL,
+    status VARCHAR(20) NOT NULL DEFAULT 'draft',
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+USE helphive;
+
+ALTER TABLE users ADD COLUMN phone VARCHAR(30) NOT NULL DEFAULT '';
+ALTER TABLE users ADD COLUMN about_me VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE users ADD COLUMN causes VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE users ADD COLUMN skills VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE users ADD COLUMN email_notifications TINYINT NOT NULL DEFAULT 0;
+
+CREATE TABLE IF NOT EXISTS notifications (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    type VARCHAR(40) NOT NULL,
+    title VARCHAR(150) NOT NULL,
+    message VARCHAR(255) NOT NULL,
+    is_read TINYINT NOT NULL DEFAULT 0,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);

@@ -25,7 +25,7 @@ if (!$isLoggedIn) {
             volunteer opportunities that make a difference in local communities.
         </p>
 
-        <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-about-hero.jpg"
+        <img src="<?php echo BASE_URL; ?>/frontend/assets/images/cardimage-aboutpage.png"
              alt="Volunteers planting together"
              class="about-hero-image">
 
@@ -81,7 +81,7 @@ if (!$isLoggedIn) {
 
             <div class="what-item">
                 <div class="what-icon">
-                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-icon-discover.png"
+                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/discoveropportunities-aboutpage.png"
                          alt="Discover opportunities icon">
                 </div>
                 <div class="what-text">
@@ -92,7 +92,7 @@ if (!$isLoggedIn) {
 
             <div class="what-item">
                 <div class="what-icon">
-                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-icon-connect.png"
+                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/connectorganizationandvolunteers-aboutpage.png"
                          alt="Connect icon">
                 </div>
                 <div class="what-text">
@@ -103,7 +103,7 @@ if (!$isLoggedIn) {
 
             <div class="what-item">
                 <div class="what-icon">
-                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-icon-recognize.png"
+                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/recognizeeverycontribution-aboutpage.png"
                          alt="Recognize contributions icon">
                 </div>
                 <div class="what-text">
@@ -124,7 +124,7 @@ if (!$isLoggedIn) {
         <div class="values-grid">
 
             <div class="value-item">
-                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-value-kindness.png"
+                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/kindness-aboutpage.png"
                      alt="Kindness icon"
                      class="value-icon">
                 <h3>Kindness</h3>
@@ -132,7 +132,7 @@ if (!$isLoggedIn) {
             </div>
 
             <div class="value-item">
-                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-value-community.png"
+                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/community-aboutpage.png"
                      alt="Community icon"
                      class="value-icon">
                 <h3>Community</h3>
@@ -140,7 +140,7 @@ if (!$isLoggedIn) {
             </div>
 
             <div class="value-item">
-                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-value-trust.png"
+                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/trust-aboutpage.png"
                      alt="Trust icon"
                      class="value-icon">
                 <h3>Trust</h3>
@@ -148,7 +148,7 @@ if (!$isLoggedIn) {
             </div>
 
             <div class="value-item">
-                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-value-impact.png"
+                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/impact-aboutpage.png"
                      alt="Impact icon"
                      class="value-icon">
                 <h3>Impact</h3>

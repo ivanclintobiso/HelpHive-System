@@ -27,7 +27,7 @@
     background-color: #ffffff;
     border: 1px solid #bbbbbb;
     border-radius: 12px;
-    color: #444444;
+    color: #3a4652;
 }
 
 .input-box input {
@@ -38,21 +38,23 @@
     background: transparent;
     font-family: inherit;
     font-size: 0.85rem;
-    color: #1b2227;
+    color: #1b2125;
 }
 
 .input-box input::placeholder {
     color: #777777;
 }
 
-.input-box i {
-    font-size: 1.1rem;
+.field-icon {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
 }
 
 .clear-location-button {
     border: none;
     background: transparent;
-    color: #444444;
+    color: #3a4652;
     font-size: 1.1rem;
     cursor: pointer;
 }
@@ -62,7 +64,7 @@
     height: 50px;
     border: none;
     border-radius: 12px;
-    background-color: #5a9378;
+    background-color: #5c9679;
     color: #ffffff;
     font-family: inherit;
     font-size: 0.9rem;
@@ -71,7 +73,7 @@
 }
 
 .search-button:hover {
-    background-color: #4a8068;
+    background-color: #4e8368;
 }
 
 
@@ -97,22 +99,30 @@
     align-items: center;
     gap: 10px;
     margin-right: 4px;
-    color: #555555;
+    color: #3a4652;
     font-size: 0.85rem;
 }
 
-.filters-label i {
-    font-size: 1.4rem;
+.filters-icon {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+}
+
+.filter-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
 }
 
 .clear-filters-button {
     padding: 4px 8px;
-    color: #444444;
+    color: #3a4652;
     font-size: 1.1rem;
 }
 
 .clear-filters-button:hover {
-    color: #5a9378;
+    color: #5c9679;
 }
 
 
@@ -130,7 +140,7 @@
     background-color: #ffffff;
     border: 1px solid #999999;
     border-radius: 20px;
-    color: #555555;
+    color: #3a4652;
     font-family: inherit;
     font-size: 0.85rem;
     cursor: pointer;
@@ -147,8 +157,8 @@
 
 .dropdown-button.has-selection {
     background-color: #eaf3ee;
-    border-color: #5a9378;
-    color: #1b2227;
+    border-color: #5c9679;
+    color: #1b2125;
 }
 
 .chevron {
@@ -172,9 +182,6 @@
     font-size: 0.9rem;
 }
 
-.distance-button i {
-    font-size: 1.1rem;
-}
 
 .dropdown-menu {
     display: none;
@@ -206,11 +213,11 @@
 }
 
 .dropdown-option:hover {
-    background-color: #f3f3f3;
+    background-color: #e4e4e4;
 }
 
 .dropdown-option input {
-    accent-color: #5a9378;
+    accent-color: #5c9679;
 }
 
 .date-option {
@@ -252,11 +259,11 @@
 
 .no-results p {
     margin: 6px 0 16px;
-    color: #555555;
+    color: #3a4652;
 }
 
 .clear-link {
-    color: #5a9378;
+    color: #5c9679;
     font-weight: 600;
     text-decoration: underline;
 }
@@ -300,7 +307,7 @@
 }
 
 .card-title a:hover {
-    color: #5a9378;
+    color: #5c9679;
 }
 
 .card-organization {
@@ -361,13 +368,15 @@
     align-items: center;
     gap: 4px;
     padding: 2px 7px;
-    border: 1px solid #333333;
+    border: 1px solid #3a4652;
     border-radius: 6px;
     font-size: 0.65rem;
 }
 
-.tag i {
-    font-size: 0.65rem;
+.tag-icon {
+    width: 12px;
+    height: 12px;
+    object-fit: contain;
 }
 
 .tag-onsite {
@@ -392,8 +401,8 @@
     height: 44px;
     border: none;
     border-radius: 50%;
-    background-color: #eeeeee;
-    color: #444444;
+    background-color: #efefef;
+    color: #3a4652;
     font-size: 1.1rem;
     cursor: pointer;
 }
@@ -402,8 +411,14 @@
     background-color: #e0e0e0;
 }
 
+.bookmark-icon {
+    width: 18px;
+    height: 22px;
+    object-fit: contain;
+}
+
 .bookmark-button.saved {
-    color: #f5b82e;
+    background-color: #f4bd35;
 }
 
 
@@ -421,7 +436,7 @@
     justify-content: center;
     width: 42px;
     height: 36px;
-    background-color: #eeeeee;
+    background-color: #efefef;
     border: 1px solid transparent;
     border-radius: 8px;
     color: #999999;
@@ -434,8 +449,8 @@
 
 .page-number.active {
     background-color: #e2e2e2;
-    border-color: #555555;
-    color: #1b2227;
+    border-color: #3a4652;
+    color: #1b2125;
 }
 
 .page-arrow {

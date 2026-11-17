@@ -1,40 +1,46 @@
 var bookmarkButtons = document.querySelectorAll(".bookmark-button");
-var savedIds = [];
-
-var storedText = localStorage.getItem("savedOpportunities");
-if (storedText) {
-    savedIds = JSON.parse(storedText);
-}
 
 
 function showBookmark(button, isSaved) {
-    var icon = button.querySelector("i");
-
     if (isSaved) {
         button.classList.add("saved");
-        icon.className = "fa-solid fa-bookmark";
     } else {
         button.classList.remove("saved");
-        icon.className = "fa-regular fa-bookmark";
     }
 }
 
 
 bookmarkButtons.forEach(function (button) {
-    var id = button.getAttribute("data-id");
-
-    showBookmark(button, savedIds.indexOf(id) !== -1);
-
     button.addEventListener("click", function () {
-        var position = savedIds.indexOf(id);
+        var id = button.getAttribute("data-id");
+        var url = button.getAttribute("data-url");
 
-        if (position === -1) {
-            savedIds.push(id);
-        } else {
-            savedIds.splice(position, 1);
-        }
+        var formData = new FormData();
+        formData.append("opportunity_id", id);
 
-        localStorage.setItem("savedOpportunities", JSON.stringify(savedIds));
-        showBookmark(button, savedIds.indexOf(id) !== -1);
+        button.disabled = true;
+
+        fetch(url, { method: "POST", body: formData })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                button.disabled = false;
+
+                if (data.status == "login_required") {
+                    document.querySelector(".open-login").click();
+                }
+
+                if (data.status == "saved") {
+                    showBookmark(button, true);
+                }
+
+                if (data.status == "removed") {
+                    showBookmark(button, false);
+                }
+            })
+            .catch(function () {
+                button.disabled = false;
+            });
     });
 });

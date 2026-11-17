@@ -40,7 +40,7 @@ include __DIR__ . "/../components/header.php";
                 <span class="join-card-arrow">&#8599;</span>
 
                 <div class="join-card-icon">
-                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-icon-join.png" alt="Join the Hive icon">
+                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/jointhehive-homeicon.png" alt="Join the Hive icon">
                 </div>
 
                 <h3>Join the Hive</h3>
@@ -54,7 +54,7 @@ include __DIR__ . "/../components/header.php";
                 <span class="join-card-arrow">&#8599;</span>
 
                 <div class="join-card-icon">
-                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-icon-volunteer.png" alt="Volunteer opportunities icon">
+                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/volunteeropuurtunities-homeicon.png" alt="Volunteer opportunities icon">
                 </div>
 
                 <h3>Volunteer Opportunities</h3>
@@ -68,7 +68,7 @@ include __DIR__ . "/../components/header.php";
                 <span class="join-card-arrow">&#8599;</span>
 
                 <div class="join-card-icon">
-                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-icon-organization.png" alt="Register your organization icon">
+                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/registeryourorganization-homeicon.png" alt="Register your organization icon">
                 </div>
 
                 <h3>Register Your Organization</h3>
@@ -92,7 +92,7 @@ include __DIR__ . "/../components/header.php";
         <div class="cause-cards">
 
             <div class="cause-card">
-                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-cause-environment.jpg"
+                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/environmentnatureoriginal-homepage.png"
                      alt="Volunteers planting a tree"
                      class="cause-image">
 
@@ -110,7 +110,7 @@ include __DIR__ . "/../components/header.php";
             </div>
 
             <div class="cause-card">
-                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-cause-education.jpg"
+                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/educationyouth-homepage.png.png"
                      alt="Volunteer teaching children"
                      class="cause-image">
 
@@ -128,7 +128,7 @@ include __DIR__ . "/../components/header.php";
             </div>
 
             <div class="cause-card">
-                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-cause-community.jpg"
+                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/communitysupport-homepage.png.png"
                      alt="Volunteers serving food"
                      class="cause-image">
 
@@ -146,7 +146,7 @@ include __DIR__ . "/../components/header.php";
             </div>
 
             <div class="cause-card">
-                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-cause-animal.jpg"
+                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/animalwelfare-homepage.png.png"
                      alt="Volunteer feeding rescued dogs"
                      class="cause-image">
 
