@@ -11,8 +11,8 @@ include __DIR__ . "/../../../backend/access-control/organization-required.php";
 
 $statusLabels = [
     "approved" => "Approved",
-    "pending" => "Pending Review",
-    "declined" => "Declined"
+    "declined" => "Declined",
+    "suspended" => "Suspended"
 ];
 
 $statusLabel = "Pending Review";
@@ -180,13 +180,13 @@ include __DIR__ . "/../../components/header.php";
                     $registrationText = "1 registration";
                 }
 
-                if ($opportunity["status"] == "draft") {
+                if ($opportunity["status"] != "published") {
                     $registrationText = "Not accepting registrations";
                 }
 
                 $editUrl = BASE_URL . "/frontend/pages/organization/edit-opportunity.php?id=" . $opportunity["id"];
 
-                if ($opportunity["status"] == "draft") {
+                if ($opportunity["status"] == "draft" || $opportunity["status"] == "rejected") {
                     $editUrl = BASE_URL . "/frontend/pages/organization/publish-opportunity.php?id=" . $opportunity["id"];
                 }
                 ?>
@@ -196,7 +196,7 @@ include __DIR__ . "/../../components/header.php";
                     <div class="opportunity-row-top">
                         <h3 class="opportunity-title"><?php echo safe($opportunity["title"]); ?></h3>
                         <span class="chip chip-<?php echo $opportunity["status"]; ?>">
-                            <?php echo ucfirst($opportunity["status"]); ?>
+                            <?php echo getOpportunityStatusText($opportunity["status"]); ?>
                         </span>
                     </div>
 

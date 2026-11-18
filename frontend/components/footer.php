@@ -12,9 +12,9 @@
             <p class="footer-tagline">Small Acts, Lasting Impact.</p>
 
             <p class="footer-legal">
-                <a href="<?php echo BASE_URL; ?>/frontend/pages/terms.php">Terms</a>
+                <a href="<?php echo BASE_URL; ?>/frontend/pages/terms.php" target="_blank">Terms</a>
                 <span>|</span>
-                <a href="<?php echo BASE_URL; ?>/frontend/pages/privacy.php">Privacy Policy</a>
+                <a href="<?php echo BASE_URL; ?>/frontend/pages/privacy.php" target="_blank">Privacy Policy</a>
             </p>
         </div>
 

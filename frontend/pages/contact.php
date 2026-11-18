@@ -17,6 +17,14 @@ function oldValue($old, $name) {
     return "";
 }
 
+function errorText($errors, $name) {
+    if (isset($errors[$name])) {
+        return safe($errors[$name]);
+    }
+
+    return "";
+}
+
 function errorClass($errors, $name) {
     if (isset($errors[$name])) {
         return "input-error";
@@ -40,6 +48,12 @@ if (isset($_SESSION["contact_old"])) {
 }
 
 include __DIR__ . "/../components/header.php";
+
+$loggedInText = "no";
+
+if ($isLoggedIn) {
+    $loggedInText = "yes";
+}
 ?>
 
 <main class="contact-section">
@@ -53,15 +67,12 @@ include __DIR__ . "/../components/header.php";
 
         <form method="post"
               action="<?php echo BASE_URL; ?>/backend/form-actions/contact-action.php"
-              id="contact-form">
+              id="contact-form"
+              data-logged-in="<?php echo $loggedInText; ?>">
 
-            <?php if (count($errors) > 0) { ?>
+            <?php if (isset($errors["general"])) { ?>
                 <div class="form-errors">
-                    <ul>
-                        <?php foreach ($errors as $error) { ?>
-                            <li><?php echo safe($error); ?></li>
-                        <?php } ?>
-                    </ul>
+                    <?php echo safe($errors["general"]); ?>
                 </div>
             <?php } ?>
 
@@ -73,6 +84,7 @@ include __DIR__ . "/../components/header.php";
                        class="contact-input <?php echo errorClass($errors, "full_name"); ?>"
                        placeholder="Enter your full name"
                        value="<?php echo oldValue($old, "full_name"); ?>">
+                <p class="field-error"><?php echo errorText($errors, "full_name"); ?></p>
             </div>
 
             <div class="contact-group">
@@ -83,6 +95,7 @@ include __DIR__ . "/../components/header.php";
                        class="contact-input <?php echo errorClass($errors, "email"); ?>"
                        placeholder="Enter your email address"
                        value="<?php echo oldValue($old, "email"); ?>">
+                <p class="field-error"><?php echo errorText($errors, "email"); ?></p>
             </div>
 
             <div class="contact-group">
@@ -93,6 +106,7 @@ include __DIR__ . "/../components/header.php";
                        class="contact-input <?php echo errorClass($errors, "subject"); ?>"
                        placeholder="What is your message about?"
                        value="<?php echo oldValue($old, "subject"); ?>">
+                <p class="field-error"><?php echo errorText($errors, "subject"); ?></p>
             </div>
 
             <div class="contact-group">
@@ -101,6 +115,7 @@ include __DIR__ . "/../components/header.php";
                           name="message"
                           class="contact-input contact-textarea <?php echo errorClass($errors, "message"); ?>"
                           placeholder="Write your message here..."><?php echo oldValue($old, "message"); ?></textarea>
+                <p class="field-error"><?php echo errorText($errors, "message"); ?></p>
             </div>
 
             <button type="submit" class="contact-button" id="contact-button">Send Message</button>

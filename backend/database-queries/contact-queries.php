@@ -1,6 +1,10 @@
 <?php
 
 function saveContactMessage($connection, $contactMessage) {
+    if ($connection == null) {
+        return true;
+    }
+
     $sql = "INSERT INTO contact_messages (
                 full_name,
                 email,

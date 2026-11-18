@@ -39,6 +39,22 @@ function getTextFromUrl($name) {
     return trim($_GET[$name]);
 }
 
+function getOpportunityStatusText($status) {
+    $labels = [
+        "draft" => "Draft",
+        "pending_review" => "Pending Review",
+        "published" => "Published",
+        "rejected" => "Rejected",
+        "removed" => "Removed"
+    ];
+
+    if (isset($labels[$status])) {
+        return $labels[$status];
+    }
+
+    return ucfirst($status);
+}
+
 function formatHours($hours) {
     $number = round($hours, 1);
 

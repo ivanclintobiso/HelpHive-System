@@ -1,17 +1,21 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (isset($_SESSION["user_id"])) {
+    header("Location: register-organization.php");
+    exit;
+}
+
 $pageTitle = "Register Organization";
 $pageCss = "organization-intro";
 $afterLoginPath = "/frontend/pages/organization/register-organization.php";
 
 include __DIR__ . "/../../components/header.php";
 
-$registerLink = BASE_URL . "/frontend/pages/organization/register-organization.php";
-$registerClass = "";
-
-if (!$isLoggedIn) {
-    $registerLink = BASE_URL . "/frontend/pages/organization/organization-intro.php?auth=login";
-    $registerClass = "open-login";
-}
+$registerLink = BASE_URL . "/frontend/pages/organization/organization-intro.php?auth=login";
+$registerClass = "open-login";
 ?>
 
 <main>

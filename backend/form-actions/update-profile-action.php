@@ -71,6 +71,45 @@ if (strlen($aboutMe) > 255 || strlen($causes) > 255 || strlen($skills) > 255) {
     $errors[] = "About me, causes and skills must be 255 characters or less.";
 }
 
+$currentProfile = getUserProfile($connection, $_SESSION["user_id"]);
+
+$profileImage = "profile1-defaultrandomprofile.png";
+
+if (!empty($currentProfile["profile_image"])) {
+    $profileImage = $currentProfile["profile_image"];
+}
+
+$photoExtension = "";
+$hasNewPhoto = false;
+
+if (isset($_FILES["profile_photo"]) && $_FILES["profile_photo"]["error"] != UPLOAD_ERR_NO_FILE) {
+    $photo = $_FILES["profile_photo"];
+
+    if ($photo["error"] != UPLOAD_ERR_OK) {
+        $errors[] = "The photo could not be uploaded. Please try a smaller image.";
+    } else if ($photo["size"] > 2 * 1024 * 1024) {
+        $errors[] = "The photo must be 2MB or smaller.";
+    } else {
+        $imageInfo = getimagesize($photo["tmp_name"]);
+
+        $allowedTypes = [
+            "image/jpeg" => "jpg",
+            "image/png" => "png",
+            "image/gif" => "gif",
+            "image/webp" => "webp"
+        ];
+
+        if ($imageInfo == false) {
+            $errors[] = "Please choose an image file only.";
+        } else if (!isset($allowedTypes[$imageInfo["mime"]])) {
+            $errors[] = "Only JPG, PNG, GIF or WEBP images are allowed.";
+        } else {
+            $photoExtension = $allowedTypes[$imageInfo["mime"]];
+            $hasNewPhoto = true;
+        }
+    }
+}
+
 if (count($errors) == 0 && $connection != null) {
     $existingUser = getUserByEmail($connection, $email);
 
@@ -97,6 +136,20 @@ if (isset($nameParts[1])) {
     $lastName = trim($nameParts[1]);
 }
 
+if ($hasNewPhoto) {
+    $uploadFolder = __DIR__ . "/../../frontend/assets/images/profile-uploads/";
+
+    if (!is_dir($uploadFolder)) {
+        mkdir($uploadFolder, 0777, true);
+    }
+
+    $newFileName = "user" . $_SESSION["user_id"] . "-" . time() . "." . $photoExtension;
+
+    if (move_uploaded_file($_FILES["profile_photo"]["tmp_name"], $uploadFolder . $newFileName)) {
+        $profileImage = "profile-uploads/" . $newFileName;
+    }
+}
+
 $profile = [
     "first_name" => $firstName,
     "last_name" => $lastName,
@@ -105,7 +158,8 @@ $profile = [
     "location" => $location,
     "about_me" => $aboutMe,
     "causes" => $causes,
-    "skills" => $skills
+    "skills" => $skills,
+    "profile_image" => $profileImage
 ];
 
 $isSaved = updateUserProfile($connection, $_SESSION["user_id"], $profile);
@@ -119,6 +173,7 @@ if (!$isSaved) {
 }
 
 $_SESSION["user_name"] = $firstName;
+$_SESSION["profile_image"] = $profileImage;
 $_SESSION["profile_success"] = "Your profile was updated.";
 
 header("Location: " . $profilePage);

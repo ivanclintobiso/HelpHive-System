@@ -127,14 +127,134 @@
     color: #666666;
 }
 
+.notification-text {
+    flex: 1;
+}
+
+.notification-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+}
+
 .notification-dot {
-    position: absolute;
-    top: 21px;
-    right: 23px;
     width: 8px;
     height: 8px;
     background-color: #f4bd35;
     border-radius: 50%;
+}
+
+.notification-read-button {
+    height: 28px;
+    padding: 0 14px;
+    background-color: #ffffff;
+    border: 1px solid #3a4652;
+    border-radius: 30px;
+    font-family: inherit;
+    font-size: 0.68rem;
+    font-weight: 500;
+    color: #1b2125;
+    cursor: pointer;
+}
+
+.notification-read-button:hover {
+    background-color: #e4e4e4;
+}
+
+.notification-delete-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    color: #b42318;
+    cursor: pointer;
+}
+
+.notification-delete-button:hover {
+    background-color: #fbe4e1;
+}
+
+
+.delete-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.55);
+    z-index: 600;
+}
+
+.delete-overlay.open {
+    display: flex;
+}
+
+.delete-card {
+    width: 100%;
+    max-width: 420px;
+    padding: 30px 28px 26px;
+    background-color: #ffffff;
+    border-radius: 24px;
+    text-align: center;
+}
+
+.delete-title {
+    font-family: "Montserrat", Arial, sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.delete-text {
+    margin-top: 8px;
+    font-size: 0.85rem;
+    color: #555555;
+}
+
+.delete-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: 22px;
+}
+
+.delete-cancel,
+.delete-confirm {
+    flex: 1;
+    height: 44px;
+    border-radius: 30px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.delete-cancel {
+    background-color: #ffffff;
+    border: 1px solid #333333;
+    color: #1b2227;
+}
+
+.delete-cancel:hover {
+    background-color: #f0f0f0;
+}
+
+.delete-confirm {
+    background-color: #c0392b;
+    border: 1px solid #c0392b;
+    color: #ffffff;
+}
+
+.delete-confirm:hover {
+    background-color: #a12f23;
 }
 
 
@@ -158,5 +278,14 @@
 @media (max-width: 800px) {
     .notifications-header {
         flex-direction: column;
+    }
+
+    .notification-item {
+        flex-wrap: wrap;
+    }
+
+    .notification-actions {
+        width: 100%;
+        justify-content: flex-end;
     }
 }

@@ -1,6 +1,3 @@
-var bookmarkButtons = document.querySelectorAll(".bookmark-button");
-
-
 function showBookmark(button, isSaved) {
     if (isSaved) {
         button.classList.add("saved");
@@ -10,37 +7,56 @@ function showBookmark(button, isSaved) {
 }
 
 
-bookmarkButtons.forEach(function (button) {
-    button.addEventListener("click", function () {
-        var id = button.getAttribute("data-id");
-        var url = button.getAttribute("data-url");
+function removeSavedOpportunity(button) {
+    sendBookmarkRequest(button);
+}
 
-        var formData = new FormData();
-        formData.append("opportunity_id", id);
 
-        button.disabled = true;
+function sendBookmarkRequest(button) {
+    var id = button.getAttribute("data-id");
+    var url = button.getAttribute("data-url");
 
-        fetch(url, { method: "POST", body: formData })
-            .then(function (response) {
-                return response.json();
-            })
-            .then(function (data) {
-                button.disabled = false;
+    var formData = new FormData();
+    formData.append("opportunity_id", id);
 
-                if (data.status == "login_required") {
-                    document.querySelector(".open-login").click();
-                }
+    button.disabled = true;
 
-                if (data.status == "saved") {
-                    showBookmark(button, true);
-                }
+    fetch(url, { method: "POST", body: formData })
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            button.disabled = false;
 
-                if (data.status == "removed") {
-                    showBookmark(button, false);
-                }
-            })
-            .catch(function () {
-                button.disabled = false;
-            });
-    });
+            if (data.status == "login_required") {
+                document.querySelector(".open-login").click();
+            }
+
+            if (data.status == "saved") {
+                showBookmark(button, true);
+            }
+
+            if (data.status == "removed") {
+                showBookmark(button, false);
+            }
+        })
+        .catch(function () {
+            button.disabled = false;
+        });
+}
+
+
+document.addEventListener("click", function (event) {
+    var button = event.target.closest(".bookmark-button");
+
+    if (!button) {
+        return;
+    }
+
+    if (button.classList.contains("saved")) {
+        openUnsaveBox(button);
+        return;
+    }
+
+    sendBookmarkRequest(button);
 });

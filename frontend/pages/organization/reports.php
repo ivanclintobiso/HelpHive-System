@@ -207,7 +207,7 @@ include __DIR__ . "/../../components/header.php";
                     <?php
                     $registrationText = countRegistrations($allRecords, $opportunity["id"]);
 
-                    if ($opportunity["status"] == "draft") {
+                    if ($opportunity["status"] != "published") {
                         $registrationText = "Not accepting registrations";
                     }
                     ?>
@@ -221,7 +221,7 @@ include __DIR__ . "/../../components/header.php";
 
                         <div>
                             <span class="chip chip-<?php echo $opportunity["status"]; ?>">
-                                <?php echo ucfirst($opportunity["status"]); ?>
+                                <?php echo getOpportunityStatusText($opportunity["status"]); ?>
                             </span>
                         </div>
 

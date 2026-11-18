@@ -42,19 +42,22 @@ $statusOptions = [
     "all" => "All",
     "pending" => "Pending",
     "approved" => "Approved",
-    "declined" => "Declined"
+    "declined" => "Declined",
+    "cancelled" => "Cancelled"
 ];
 
 $statusMessages = [
     "approved" => "You're confirmed! Check the activity details before attending.",
     "pending" => "Your application is waiting for the organization to review it.",
-    "declined" => "Sorry, the organization could not accept your application this time."
+    "declined" => "Sorry, the organization could not accept your application this time.",
+    "cancelled" => "This opportunity is no longer available, so your application was cancelled."
 ];
 
 $statusIcons = [
     "approved" => "fa-regular fa-circle-check",
     "pending" => "fa-regular fa-clock",
-    "declined" => "fa-regular fa-circle-xmark"
+    "declined" => "fa-regular fa-circle-xmark",
+    "cancelled" => "fa-solid fa-ban"
 ];
 
 
@@ -166,7 +169,7 @@ include __DIR__ . "/../../components/header.php";
             <article class="application-card">
 
                 <div class="application-image">
-                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/<?php echo $application["image"]; ?>"
+                    <img src="<?php echo $application["image_url"]; ?>"
                          alt="<?php echo safe($application["title"]); ?>">
                 </div>
 

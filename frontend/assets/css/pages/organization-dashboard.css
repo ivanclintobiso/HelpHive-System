@@ -995,3 +995,19 @@
 .toast-popup .popup-text {
     font-size: 0.68rem;
 }
+
+.chip-pending_review {
+    background-color: #fdf3d4;
+    color: #8a5a00;
+}
+
+.chip-rejected,
+.chip-removed {
+    background-color: #fde8e8;
+    color: #b42318;
+}
+
+.badge-suspended {
+    background-color: #fde8e8;
+    color: #b42318;
+}

@@ -94,6 +94,7 @@ ALTER TABLE users ADD COLUMN about_me VARCHAR(255) NOT NULL DEFAULT '';
 ALTER TABLE users ADD COLUMN causes VARCHAR(255) NOT NULL DEFAULT '';
 ALTER TABLE users ADD COLUMN skills VARCHAR(255) NOT NULL DEFAULT '';
 ALTER TABLE users ADD COLUMN email_notifications TINYINT NOT NULL DEFAULT 0;
+ALTER TABLE users ADD COLUMN profile_image VARCHAR(100) NOT NULL DEFAULT 'profile1-defaultrandomprofile.png';
 
 CREATE TABLE IF NOT EXISTS notifications (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -104,3 +105,17 @@ CREATE TABLE IF NOT EXISTS notifications (
     is_read TINYINT NOT NULL DEFAULT 0,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+USE helphive;
+
+ALTER TABLE users ADD COLUMN role VARCHAR(20) NOT NULL DEFAULT 'volunteer';
+ALTER TABLE users ADD COLUMN status VARCHAR(20) NOT NULL DEFAULT 'active';
+
+ALTER TABLE organizations ADD COLUMN rejection_reason VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE opportunities ADD COLUMN rejection_reason VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE contact_messages ADD COLUMN is_read TINYINT NOT NULL DEFAULT 0;
+
+INSERT INTO users (first_name, last_name, email, password, location, role, status, profile_image)
+VALUES ('Hive', 'Keeper', 'hivekeeper.ops@helphive.com', '$2y$10$X4LlFFE9GzvoDGh8xSEhTOsHZet/c0.TBCtxKpfUhtit3/UPx7rf2', '', 'admin', 'active', 'profile1-defaultrandomprofile.png');
+
+ALTER TABLE users ADD COLUMN ban_reason VARCHAR(255) NOT NULL DEFAULT '';

@@ -1,9 +1,9 @@
 .intro-hero {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
     min-height: 760px;
-    padding: 80px 40px;
+    padding: 80px 8% 80px 40px;
     background-color: #f4bd35;
     background-image: url("../../images/backgroundintro-registerintroorgranization.png");
     background-size: cover;
@@ -11,8 +11,8 @@
 }
 
 .intro-card {
-    width: 100%;
-    max-width: 720px;
+    width: 60%;
+    max-width: 860px;
     padding: 15px 15px 40px;
     background-color: #ffffff;
     border-radius: 40px;
@@ -180,7 +180,12 @@
 
 @media (max-width: 800px) {
     .intro-hero {
+        justify-content: center;
         padding: 40px 16px;
+    }
+
+    .intro-card {
+        width: 100%;
     }
 
     .intro-card-title {

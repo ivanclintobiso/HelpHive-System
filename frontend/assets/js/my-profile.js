@@ -31,3 +31,29 @@ namePencil.addEventListener("click", function () {
 if (profileForm.classList.contains("editing")) {
     startEditing();
 }
+
+var photoInput = document.getElementById("profile-photo-input");
+var avatarPreview = document.getElementById("avatar-preview");
+
+
+photoInput.addEventListener("change", function () {
+    var file = photoInput.files[0];
+
+    if (!file) {
+        return;
+    }
+
+    if (file.type.indexOf("image/") != 0) {
+        alert("Please choose an image file only.");
+        photoInput.value = "";
+        return;
+    }
+
+    var reader = new FileReader();
+
+    reader.onload = function (event) {
+        avatarPreview.src = event.target.result;
+    };
+
+    reader.readAsDataURL(file);
+});

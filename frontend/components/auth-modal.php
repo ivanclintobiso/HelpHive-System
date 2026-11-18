@@ -126,9 +126,9 @@ if (isset($afterLoginPath)) {
 
         <p class="auth-terms">
             By creating an account, you agree to our
-            <a href="<?php echo BASE_URL; ?>/frontend/pages/terms.php">Terms of Use</a>
+            <a href="<?php echo BASE_URL; ?>/frontend/pages/terms.php" target="_blank">Terms of Use</a>
             and
-            <a href="<?php echo BASE_URL; ?>/frontend/pages/privacy.php">Privacy Policy</a>.
+            <a href="<?php echo BASE_URL; ?>/frontend/pages/privacy.php" target="_blank">Privacy Policy</a>.
         </p>
 
     </div>
@@ -225,17 +225,15 @@ if (isset($afterLoginPath)) {
                        value="<?php echo $oldLocation; ?>">
             </div>
 
-            <a href="<?php echo BASE_URL; ?>/frontend/pages/contact.php" class="forgot-link">Forgot Password?</a>
-
             <button type="submit" class="auth-submit">Sign Up</button>
 
         </form>
 
         <p class="auth-terms">
             By creating an account, you agree to our
-            <a href="<?php echo BASE_URL; ?>/frontend/pages/terms.php">Terms of Use</a>
+            <a href="<?php echo BASE_URL; ?>/frontend/pages/terms.php" target="_blank">Terms of Use</a>
             and
-            <a href="<?php echo BASE_URL; ?>/frontend/pages/privacy.php">Privacy Policy</a>.
+            <a href="<?php echo BASE_URL; ?>/frontend/pages/privacy.php" target="_blank">Privacy Policy</a>.
         </p>
 
     </div>

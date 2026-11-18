@@ -117,7 +117,8 @@ $user = [
     "last_name" => $lastName,
     "email" => $email,
     "password" => password_hash($password, PASSWORD_DEFAULT),
-    "location" => $location
+    "location" => $location,
+    "profile_image" => getRandomProfileImage()
 ];
 
 $userId = saveUser($connection, $user);
@@ -126,6 +127,7 @@ session_regenerate_id(true);
 
 $_SESSION["user_id"] = $userId;
 $_SESSION["user_name"] = $firstName;
+$_SESSION["profile_image"] = $user["profile_image"];
 
 header("Location: " . $returnUrl);
 exit;

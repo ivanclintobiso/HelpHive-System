@@ -4,6 +4,7 @@ session_start();
 include __DIR__ . "/../settings/app-settings.php";
 
 $homePage = BASE_URL . "/frontend/pages/home.php";
+$dashboardPage = BASE_URL . "/frontend/pages/admin/dashboard.php";
 
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
     header("Location: " . $homePage);
@@ -75,6 +76,8 @@ if ($password == "") {
 
 $user = null;
 $isTestAccount = false;
+$isTestAdmin = false;
+$isTestBanned = false;
 
 if (count($errors) == 0) {
 
@@ -86,10 +89,26 @@ if (count($errors) == 0) {
             $errors[] = "Incorrect password. Please try again.";
         }
 
+    } else if (TEST_ACCOUNT_ENABLED && strtolower($email) == TEST_BANNED_EMAIL) {
+
+        if ($password == TEST_BANNED_PASSWORD) {
+            $isTestBanned = true;
+        } else {
+            $errors[] = "Incorrect password. Please try again.";
+        }
+
+    } else if (TEST_ACCOUNT_ENABLED && strtolower($email) == TEST_ADMIN_EMAIL) {
+
+        if ($password == TEST_ADMIN_PASSWORD) {
+            $isTestAdmin = true;
+        } else {
+            $errors[] = "Incorrect password. Please try again.";
+        }
+
     } else {
 
         include __DIR__ . "/../settings/database-connection.php";
-        include __DIR__ . "/../database-queries/user-queries.php";
+        include_once __DIR__ . "/../database-queries/user-queries.php";
 
         $user = getUserByEmail($connection, $email);
 
@@ -113,14 +132,57 @@ if (count($errors) > 0) {
 
 session_regenerate_id(true);
 
+if ($isTestAdmin) {
+    $_SESSION["user_id"] = TEST_ADMIN_ID;
+    $_SESSION["user_name"] = "Admin";
+    $_SESSION["role"] = "admin";
+    $_SESSION["profile_image"] = "profile1-defaultrandomprofile.png";
+    unset($_SESSION["test_admin_data"]);
+
+    header("Location: " . $dashboardPage);
+    exit;
+}
+
+if ($isTestBanned) {
+    $_SESSION["user_id"] = TEST_BANNED_ID;
+    $_SESSION["user_name"] = "Banned";
+    $_SESSION["role"] = "volunteer";
+    $_SESSION["profile_image"] = "profile2-defaultrandomprofile.png";
+    $_SESSION["is_banned"] = true;
+    $_SESSION["ban_reason"] = TEST_BANNED_REASON;
+
+    header("Location: " . $returnUrl);
+    exit;
+}
+
 if ($isTestAccount) {
+    include_once __DIR__ . "/../database-queries/user-queries.php";
+
     $_SESSION["user_id"] = TEST_ACCOUNT_ID;
     $_SESSION["user_name"] = "Test";
+    $_SESSION["role"] = "volunteer";
     $_SESSION["is_test_account"] = true;
     $_SESSION["test_has_applications"] = TEST_ACCOUNT_HAS_APPLICATIONS;
-} else {
-    $_SESSION["user_id"] = $user["id"];
-    $_SESSION["user_name"] = $user["first_name"];
+    $_SESSION["profile_image"] = getRandomProfileImage();
+    unset($_SESSION["test_user_profile"]);
+
+    header("Location: " . $returnUrl);
+    exit;
+}
+
+$_SESSION["user_id"] = $user["id"];
+$_SESSION["user_name"] = $user["first_name"];
+$_SESSION["role"] = $user["role"];
+$_SESSION["profile_image"] = $user["profile_image"];
+
+if ($user["status"] == "banned") {
+    $_SESSION["is_banned"] = true;
+    $_SESSION["ban_reason"] = $user["ban_reason"];
+}
+
+if ($user["role"] == "admin") {
+    header("Location: " . $dashboardPage);
+    exit;
 }
 
 header("Location: " . $returnUrl);

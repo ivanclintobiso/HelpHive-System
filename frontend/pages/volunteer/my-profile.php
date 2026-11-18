@@ -106,7 +106,13 @@ foreach ($history as $item) {
 
 $completedCount = count($history);
 
-$avatarFile = __DIR__ . "/../../assets/images/temp-profile.png";
+$avatarName = "profile1-defaultrandomprofile.png";
+
+if (!empty($profile["profile_image"])) {
+    $avatarName = $profile["profile_image"];
+}
+
+$avatarFile = __DIR__ . "/../../assets/images/" . $avatarName;
 
 include __DIR__ . "/../../components/header.php";
 ?>
@@ -137,6 +143,7 @@ include __DIR__ . "/../../components/header.php";
 
         <form method="post"
               action="<?php echo BASE_URL; ?>/backend/form-actions/update-profile-action.php"
+              enctype="multipart/form-data"
               class="profile-form <?php echo $editingClass; ?>"
               id="profile-form">
 
@@ -144,10 +151,24 @@ include __DIR__ . "/../../components/header.php";
 
                 <div class="profile-top">
 
-                    <div class="profile-avatar">
-                        <?php if (file_exists($avatarFile)) { ?>
-                            <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-profile.png" alt="Profile picture">
-                        <?php } ?>
+                    <div class="avatar-box">
+
+                        <div class="profile-avatar">
+                            <img src="<?php echo BASE_URL; ?>/frontend/assets/images/<?php echo $avatarName; ?>"
+                                 alt="Profile picture"
+                                 id="avatar-preview">
+                        </div>
+
+                        <label for="profile-photo-input" class="avatar-pencil">
+                            <i class="fa-solid fa-pencil"></i>
+                        </label>
+
+                        <input type="file"
+                               name="profile_photo"
+                               id="profile-photo-input"
+                               class="photo-input"
+                               accept="image/*">
+
                     </div>
 
                     <div class="profile-info">

@@ -28,10 +28,11 @@ $causeOptions = [
 
 $durationOptions = [
     "one-day" => "One day",
+    "few-days" => "A few days",
     "ongoing" => "Ongoing"
 ];
 
-$allOpportunities = getAllOpportunities();
+$allOpportunities = getAllOpportunities($connection);
 $savedIds = getSavedOpportunityIds($connection, $_SESSION["user_id"]);
 
 $savedOpportunities = [];
@@ -75,7 +76,7 @@ include __DIR__ . "/../../components/header.php";
             <article class="opportunity-card">
 
                 <div class="card-image">
-                    <img src="<?php echo BASE_URL; ?>/frontend/assets/images/<?php echo $opportunity["image"]; ?>"
+                    <img src="<?php echo $opportunity["image_url"]; ?>"
                          alt="<?php echo safe($opportunity["title"]); ?>">
                 </div>
 
@@ -97,9 +98,13 @@ include __DIR__ . "/../../components/header.php";
 
                     <p class="card-organization"><?php echo safe($opportunity["organization"]); ?></p>
 
-                    <span class="cause-tag cause-<?php echo $opportunity["cause"]; ?>">
-                        <?php echo $causeOptions[$opportunity["cause"]]; ?>
-                    </span>
+                    <?php foreach ($opportunity["causes"] as $cause) { ?>
+                        <?php if (isset($causeOptions[$cause])) { ?>
+                            <span class="cause-tag cause-<?php echo $cause; ?>">
+                                <?php echo $causeOptions[$cause]; ?>
+                            </span>
+                        <?php } ?>
+                    <?php } ?>
 
                     <hr class="card-line">
 
@@ -130,7 +135,7 @@ include __DIR__ . "/../../components/header.php";
 
                         <span class="tag">
                             <img src="<?php echo BASE_URL; ?>/frontend/assets/images/duration-searchoppurtunitiespage.png" alt="" class="tag-icon">
-                            <?php echo $durationOptions[$opportunity["duration"]]; ?>
+                            <?php echo safe(isset($durationOptions[$opportunity["duration"]]) ? $durationOptions[$opportunity["duration"]] : "Not set"); ?>
                         </span>
 
                     </div>
@@ -145,6 +150,9 @@ include __DIR__ . "/../../components/header.php";
 
 </div>
 
+<?php include __DIR__ . "/../../components/unsave-modal.php"; ?>
+
+<script src="<?php echo BASE_URL; ?>/frontend/assets/js/unsave-modal.js"></script>
 <script src="<?php echo BASE_URL; ?>/frontend/assets/js/saved-opportunities.js"></script>
 
 <?php include __DIR__ . "/../../components/footer.php"; ?>

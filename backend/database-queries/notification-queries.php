@@ -3,9 +3,43 @@
 function getTestNotifications() {
     if (!isset($_SESSION["test_notifications"])) {
         $_SESSION["test_notifications"] = [];
+
+        if (TEST_ACCOUNT_HAS_NOTIFICATIONS) {
+            $_SESSION["test_notifications"] = [
+                [
+                    "id" => 2,
+                    "type" => "organization_suspended",
+                    "title" => "Organization suspended",
+                    "message" => "Your organization Sample Organization was suspended by the admin. Reason: Some of your posts did not follow the community rules.",
+                    "is_read" => 0,
+                    "created_at" => date("Y-m-d H:i:s", strtotime("-1 hour"))
+                ],
+                [
+                    "id" => 1,
+                    "type" => "opportunity_removed",
+                    "title" => "Opportunity removed",
+                    "message" => "Your opportunity Sample Beach Cleanup was removed by the admin. Reason: The activity details were incomplete.",
+                    "is_read" => 0,
+                    "created_at" => date("Y-m-d H:i:s", strtotime("-1 day"))
+                ]
+            ];
+        }
     }
 
     return $_SESSION["test_notifications"];
+}
+
+
+function getNextTestNotificationId($notifications) {
+    $highestId = 0;
+
+    foreach ($notifications as $notification) {
+        if ($notification["id"] > $highestId) {
+            $highestId = $notification["id"];
+        }
+    }
+
+    return $highestId + 1;
 }
 
 
@@ -14,7 +48,7 @@ function createNotification($connection, $userId, $type, $title, $message) {
         $notifications = getTestNotifications();
 
         array_unshift($notifications, [
-            "id" => count($notifications) + 1,
+            "id" => getNextTestNotificationId($notifications),
             "type" => $type,
             "title" => $title,
             "message" => $message,
@@ -79,6 +113,55 @@ function markAllNotificationsRead($connection, $userId) {
 
     $statement = $connection->prepare($sql);
     $statement->bind_param("i", $userId);
+
+    return $statement->execute();
+}
+
+
+function markNotificationRead($connection, $userId, $notificationId) {
+    if ($connection == null) {
+        $notifications = getTestNotifications();
+
+        for ($i = 0; $i < count($notifications); $i++) {
+            if ($notifications[$i]["id"] == $notificationId) {
+                $notifications[$i]["is_read"] = 1;
+            }
+        }
+
+        $_SESSION["test_notifications"] = $notifications;
+
+        return true;
+    }
+
+    $sql = "UPDATE notifications SET is_read = 1 WHERE id = ? AND user_id = ?";
+
+    $statement = $connection->prepare($sql);
+    $statement->bind_param("ii", $notificationId, $userId);
+
+    return $statement->execute();
+}
+
+
+function deleteNotification($connection, $userId, $notificationId) {
+    if ($connection == null) {
+        $notifications = getTestNotifications();
+        $keptNotifications = [];
+
+        foreach ($notifications as $notification) {
+            if ($notification["id"] != $notificationId) {
+                $keptNotifications[] = $notification;
+            }
+        }
+
+        $_SESSION["test_notifications"] = $keptNotifications;
+
+        return true;
+    }
+
+    $sql = "DELETE FROM notifications WHERE id = ? AND user_id = ?";
+
+    $statement = $connection->prepare($sql);
+    $statement->bind_param("ii", $notificationId, $userId);
 
     return $statement->execute();
 }

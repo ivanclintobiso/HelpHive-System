@@ -190,6 +190,7 @@ if ($isSaved) {
     createNotification($connection, $_SESSION["user_id"], "organization_submitted", "Organization submitted", "Your organization " . $organizationName . " was submitted for review.");
 
     header("Location: " . $submittedPage);
+    exit;
 }
 
 $_SESSION["organization_errors"] = ["Something went wrong while saving. Please try again."];

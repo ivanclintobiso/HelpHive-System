@@ -15,11 +15,57 @@ function getTestApplicationRows() {
 }
 
 
-function getApplicationRows($connection, $userId) {
-    $sql = "SELECT id, opportunity_id, status
-            FROM applications
-            WHERE user_id = ?
-            ORDER BY id DESC";
+function getTestApplicationDetails() {
+    $data = getTestAdminData();
+    $details = [];
+
+    foreach (getTestApplicationRows() as $applicationRow) {
+        foreach ($data["opportunities"] as $opportunity) {
+            if ($opportunity["id"] != $applicationRow["opportunity_id"]) {
+                continue;
+            }
+
+            $organizationStatus = "";
+            $organizationPlace = "";
+
+            foreach ($data["organizations"] as $organization) {
+                if ($organization["organization_name"] == $opportunity["organization_name"]) {
+                    $organizationStatus = $organization["status"];
+                    $organizationPlace = $organization["city_province"];
+                }
+            }
+
+            $opportunity["city_province"] = $organizationPlace;
+            $opportunity["application_id"] = $applicationRow["id"];
+            $opportunity["application_status"] = $applicationRow["status"];
+            $opportunity["opportunity_status"] = $opportunity["status"];
+            $opportunity["organization_status"] = $organizationStatus;
+
+            $details[] = $opportunity;
+        }
+    }
+
+    return $details;
+}
+
+
+function getApplicationDetails($connection, $userId) {
+    if ($connection == null) {
+        return getTestApplicationDetails();
+    }
+
+    $sql = "SELECT a.id AS application_id, a.status AS application_status,
+                   p.id, p.image, p.title, p.cause, p.short_description, p.activity_date,
+                   p.location_type, p.start_time, p.end_time, p.location, p.good_for,
+                   p.duration, p.skills,
+                   p.status AS opportunity_status,
+                   o.organization_name, o.city_province,
+                   o.status AS organization_status
+            FROM applications a
+            INNER JOIN opportunities p ON p.id = a.opportunity_id
+            INNER JOIN organizations o ON o.id = p.organization_id
+            WHERE a.user_id = ?
+            ORDER BY a.id DESC";
 
     $statement = $connection->prepare($sql);
     $statement->bind_param("i", $userId);
@@ -27,46 +73,48 @@ function getApplicationRows($connection, $userId) {
 
     $result = $statement->get_result();
 
-    $rows = [];
+    $details = [];
 
     while ($row = $result->fetch_assoc()) {
-        $rows[] = $row;
+        $details[] = $row;
     }
 
-    return $rows;
+    return $details;
 }
 
 
 function getMyApplications($connection, $userId) {
-    if ($connection == null) {
-        $rows = getTestApplicationRows();
-    } else {
-        $rows = getApplicationRows($connection, $userId);
-    }
-
-    $allOpportunities = getAllOpportunities();
-
     $applications = [];
 
-    foreach ($rows as $row) {
+    foreach (getApplicationDetails($connection, $userId) as $row) {
+        $card = makeOpportunityCard($row);
 
-        foreach ($allOpportunities as $opportunity) {
+        $status = $row["application_status"];
 
-            if ($opportunity["id"] == $row["opportunity_id"]) {
-                $applications[] = [
-                    "id" => $row["id"],
-                    "opportunity_id" => $opportunity["id"],
-                    "title" => $opportunity["title"],
-                    "organization" => $opportunity["organization"],
-                    "status" => $row["status"],
-                    "schedule_text" => $opportunity["date_text"],
-                    "city" => $opportunity["city"],
-                    "image" => $opportunity["image"]
-                ];
-            }
+        $isUnavailable = false;
 
+        if ($row["opportunity_status"] != "published") {
+            $isUnavailable = true;
         }
 
+        if ($row["organization_status"] != "approved") {
+            $isUnavailable = true;
+        }
+
+        if ($isUnavailable && ($status == "pending" || $status == "approved")) {
+            $status = "cancelled";
+        }
+
+        $applications[] = [
+            "id" => $row["application_id"],
+            "opportunity_id" => $card["id"],
+            "title" => $card["title"],
+            "organization" => $card["organization"],
+            "status" => $status,
+            "schedule_text" => $card["date_text"],
+            "city" => $card["city"],
+            "image_url" => $card["image_url"]
+        ];
     }
 
     return $applications;
@@ -79,10 +127,11 @@ function getMyVolunteerHistory($connection, $userId) {
         return [];
     }
 
-    $sql = "SELECT opportunity_id, volunteer_hours
-            FROM applications
-            WHERE user_id = ? AND hours_verified = 1
-            ORDER BY id DESC";
+    $sql = "SELECT a.volunteer_hours, p.title
+            FROM applications a
+            LEFT JOIN opportunities p ON p.id = a.opportunity_id
+            WHERE a.user_id = ? AND a.hours_verified = 1
+            ORDER BY a.id DESC";
 
     $statement = $connection->prepare($sql);
     $statement->bind_param("i", $userId);
@@ -90,17 +139,13 @@ function getMyVolunteerHistory($connection, $userId) {
 
     $result = $statement->get_result();
 
-    $allOpportunities = getAllOpportunities();
-
     $history = [];
 
     while ($row = $result->fetch_assoc()) {
         $title = "Volunteer activity";
 
-        foreach ($allOpportunities as $opportunity) {
-            if ($opportunity["id"] == $row["opportunity_id"]) {
-                $title = $opportunity["title"];
-            }
+        if ($row["title"] != null && $row["title"] != "") {
+            $title = $row["title"];
         }
 
         $history[] = [

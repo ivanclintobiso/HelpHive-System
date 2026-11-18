@@ -1,8 +1,14 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 $pageTitle = "Search Opportunities";
 $pageCss = "search";
 
+include __DIR__ . "/../../backend/settings/connection-with-test-mode.php";
 include __DIR__ . "/../../backend/database-queries/opportunity-queries.php";
+include __DIR__ . "/../../backend/database-queries/user-queries.php";
 
 
 function safe($text) {
@@ -49,6 +55,25 @@ function getChipClass($selectedList) {
     return "";
 }
 
+function getFilterLabel($defaultLabel, $options, $selectedList) {
+    if (count($selectedList) == 0) {
+        return $defaultLabel;
+    }
+
+    $firstValue = $selectedList[0];
+    $label = $firstValue;
+
+    if (isset($options[$firstValue])) {
+        $label = $options[$firstValue];
+    }
+
+    if (count($selectedList) > 1) {
+        $label = $label . " +" . (count($selectedList) - 1);
+    }
+
+    return $label;
+}
+
 function makePageLink($pageNumber) {
     $queryData = $_GET;
     $queryData["page"] = $pageNumber;
@@ -78,6 +103,7 @@ $goodForOptions = [
 
 $durationOptions = [
     "one-day" => "One day",
+    "few-days" => "A few days",
     "ongoing" => "Ongoing"
 ];
 
@@ -89,18 +115,20 @@ $skillOptions = [
     "Teaching" => "Teaching"
 ];
 
-$distanceOptions = [
-    "" => "Any distance",
-    "5" => "Within 5 km",
-    "10" => "Within 10 km",
-    "25" => "Within 25 km",
-    "50" => "Within 50 km"
-];
+
+$defaultLocation = "";
+
+if (isset($_SESSION["user_id"])) {
+    $userProfile = getUserProfile($connection, $_SESSION["user_id"]);
+
+    if ($userProfile != null) {
+        $defaultLocation = $userProfile["location"];
+    }
+}
 
 
 $keyword = getTextFromUrl("keyword", "");
-$location = getTextFromUrl("location", "Cebu, Philippines");
-$distance = getTextFromUrl("distance", "");
+$location = getTextFromUrl("location", $defaultLocation);
 $fromDate = getTextFromUrl("date", "");
 
 $selectedLocationTypes = getListFromUrl("location_type");
@@ -109,20 +137,32 @@ $selectedGoodFor = getListFromUrl("good_for");
 $selectedDurations = getListFromUrl("duration");
 $selectedSkills = getListFromUrl("skill");
 
-$distanceLabel = "Distance";
-if ($distance != "" && isset($distanceOptions[$distance])) {
-    $distanceLabel = $distanceOptions[$distance];
-}
+$locationTypeLabel = getFilterLabel("Location Type", $locationTypeOptions, $selectedLocationTypes);
+$causeLabel = getFilterLabel("Cause Areas", $causeOptions, $selectedCauses);
+$goodForLabel = getFilterLabel("Good For", $goodForOptions, $selectedGoodFor);
+$durationLabel = getFilterLabel("Duration", $durationOptions, $selectedDurations);
+$skillLabel = getFilterLabel("Skills", $skillOptions, $selectedSkills);
 
+$dateLabel = "Date";
 $dateClass = "";
 if ($fromDate != "") {
+    $dateLabel = date("M j, Y", strtotime($fromDate));
     $dateClass = "has-selection";
+}
+
+$hasFilters = false;
+
+if (count($selectedLocationTypes) > 0 || count($selectedCauses) > 0 || count($selectedGoodFor) > 0) {
+    $hasFilters = true;
+}
+
+if (count($selectedDurations) > 0 || count($selectedSkills) > 0 || $fromDate != "") {
+    $hasFilters = true;
 }
 
 $filters = [
     "keyword" => $keyword,
     "location" => $location,
-    "distance" => $distance,
     "location_types" => $selectedLocationTypes,
     "causes" => $selectedCauses,
     "good_for" => $selectedGoodFor,
@@ -131,7 +171,7 @@ $filters = [
     "skills" => $selectedSkills
 ];
 
-$allResults = searchOpportunities($filters);
+$allResults = searchOpportunities($connection, $filters);
 $totalResults = count($allResults);
 
 $resultsPerPage = 5;
@@ -164,7 +204,6 @@ include __DIR__ . "/../components/header.php";
 $savedIds = [];
 
 if ($isLoggedIn) {
-    include __DIR__ . "/../../backend/settings/connection-with-test-mode.php";
     include __DIR__ . "/../../backend/database-queries/saved-opportunity-queries.php";
 
     $savedIds = getSavedOpportunityIds($connection, $_SESSION["user_id"]);
@@ -195,26 +234,6 @@ if ($isLoggedIn) {
             </button>
         </div>
 
-        <div class="filter-dropdown distance-dropdown">
-            <button type="button" class="dropdown-button distance-button <?php if ($distance != "") { echo "has-selection"; } ?>">
-                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/distance-searchoppurtunitiespage.png" alt="" class="field-icon">
-                <span><?php echo safe($distanceLabel); ?></span>
-                <i class="fa-solid fa-chevron-up chevron"></i>
-            </button>
-
-            <div class="dropdown-menu">
-                <?php foreach ($distanceOptions as $value => $label) { ?>
-                    <label class="dropdown-option">
-                        <input type="radio"
-                               name="distance"
-                               value="<?php echo $value; ?>"
-                               <?php if ($distance == $value) { echo "checked"; } ?>>
-                        <?php echo $label; ?>
-                    </label>
-                <?php } ?>
-            </div>
-        </div>
-
         <button type="submit" class="search-button">Search</button>
 
     </div>
@@ -230,7 +249,7 @@ if ($isLoggedIn) {
         <div class="filter-dropdown">
             <button type="button" class="dropdown-button <?php echo getChipClass($selectedLocationTypes); ?>">
                 <img src="<?php echo BASE_URL; ?>/frontend/assets/images/locationtype-searchoppurtunitiespage.png" alt="" class="filter-icon">
-                <span>Location Type</span>
+                <span><?php echo safe($locationTypeLabel); ?></span>
                 <i class="fa-solid fa-chevron-up chevron"></i>
             </button>
 
@@ -250,7 +269,7 @@ if ($isLoggedIn) {
         <div class="filter-dropdown">
             <button type="button" class="dropdown-button <?php echo getChipClass($selectedCauses); ?>">
                 <img src="<?php echo BASE_URL; ?>/frontend/assets/images/causeareas-searchoppurtunitiespage.png" alt="" class="filter-icon">
-                <span>Cause Areas</span>
+                <span><?php echo safe($causeLabel); ?></span>
                 <i class="fa-solid fa-chevron-up chevron"></i>
             </button>
 
@@ -270,7 +289,7 @@ if ($isLoggedIn) {
         <div class="filter-dropdown">
             <button type="button" class="dropdown-button <?php echo getChipClass($selectedGoodFor); ?>">
                 <img src="<?php echo BASE_URL; ?>/frontend/assets/images/goodfor-searchoppurtunitiespage.png" alt="" class="filter-icon">
-                <span>Good For</span>
+                <span><?php echo safe($goodForLabel); ?></span>
                 <i class="fa-solid fa-chevron-up chevron"></i>
             </button>
 
@@ -290,7 +309,7 @@ if ($isLoggedIn) {
         <div class="filter-dropdown">
             <button type="button" class="dropdown-button <?php echo getChipClass($selectedDurations); ?>">
                 <img src="<?php echo BASE_URL; ?>/frontend/assets/images/duration-searchoppurtunitiespage.png" alt="" class="filter-icon">
-                <span>Duration</span>
+                <span><?php echo safe($durationLabel); ?></span>
                 <i class="fa-solid fa-chevron-up chevron"></i>
             </button>
 
@@ -310,7 +329,7 @@ if ($isLoggedIn) {
         <div class="filter-dropdown">
             <button type="button" class="dropdown-button <?php echo $dateClass; ?>">
                 <img src="<?php echo BASE_URL; ?>/frontend/assets/images/date-searchoppurtunitiespage.png" alt="" class="filter-icon">
-                <span>Date</span>
+                <span><?php echo safe($dateLabel); ?></span>
                 <i class="fa-solid fa-chevron-up chevron"></i>
             </button>
 
@@ -325,7 +344,7 @@ if ($isLoggedIn) {
         <div class="filter-dropdown">
             <button type="button" class="dropdown-button <?php echo getChipClass($selectedSkills); ?>">
                 <img src="<?php echo BASE_URL; ?>/frontend/assets/images/skills-searchoppurtunitiespage.png" alt="" class="filter-icon">
-                <span>Skills</span>
+                <span><?php echo safe($skillLabel); ?></span>
                 <i class="fa-solid fa-chevron-up chevron"></i>
             </button>
 
@@ -342,9 +361,11 @@ if ($isLoggedIn) {
             </div>
         </div>
 
-        <a href="search.php" class="clear-filters-button" title="Clear all filters">
-            <i class="fa-solid fa-xmark"></i>
-        </a>
+        <?php if ($hasFilters) { ?>
+            <a href="search.php" class="clear-filters-button" title="Clear all filters">
+                <i class="fa-solid fa-xmark"></i>
+            </a>
+        <?php } ?>
 
     </div>
 
@@ -368,7 +389,7 @@ if ($isLoggedIn) {
         <article class="opportunity-card">
 
             <div class="card-image">
-                <img src="<?php echo BASE_URL; ?>/frontend/assets/images/<?php echo $opportunity["image"]; ?>"
+                <img src="<?php echo $opportunity["image_url"]; ?>"
                      alt="<?php echo safe($opportunity["title"]); ?>">
             </div>
 
@@ -398,9 +419,13 @@ if ($isLoggedIn) {
 
                 <p class="card-organization"><?php echo safe($opportunity["organization"]); ?></p>
 
-                <span class="cause-tag cause-<?php echo $opportunity["cause"]; ?>">
-                    <?php echo $causeOptions[$opportunity["cause"]]; ?>
-                </span>
+                <?php foreach ($opportunity["causes"] as $cause) { ?>
+                    <?php if (isset($causeOptions[$cause])) { ?>
+                        <span class="cause-tag cause-<?php echo $cause; ?>">
+                            <?php echo $causeOptions[$cause]; ?>
+                        </span>
+                    <?php } ?>
+                <?php } ?>
 
                 <hr class="card-line">
 
@@ -431,7 +456,7 @@ if ($isLoggedIn) {
 
                     <span class="tag">
                         <img src="<?php echo BASE_URL; ?>/frontend/assets/images/duration-searchoppurtunitiespage.png" alt="" class="tag-icon">
-                        <?php echo $durationOptions[$opportunity["duration"]]; ?>
+                        <?php echo safe(isset($durationOptions[$opportunity["duration"]]) ? $durationOptions[$opportunity["duration"]] : "Not set"); ?>
                     </span>
 
                 </div>
@@ -478,7 +503,10 @@ if ($isLoggedIn) {
 
 </main>
 
+<?php include __DIR__ . "/../components/unsave-modal.php"; ?>
+
 <script src="<?php echo BASE_URL; ?>/frontend/assets/js/search-filter.js"></script>
+<script src="<?php echo BASE_URL; ?>/frontend/assets/js/unsave-modal.js"></script>
 <script src="<?php echo BASE_URL; ?>/frontend/assets/js/bookmark-toggle.js"></script>
 
 <?php include __DIR__ . "/../components/footer.php"; ?>

@@ -8,6 +8,11 @@ $emptyMessage = "You need to register an organization before you can post an opp
 
 include __DIR__ . "/../../../backend/access-control/organization-required.php";
 
+if ($organization["status"] != "approved") {
+    include __DIR__ . "/../../components/organization-not-approved.php";
+    exit;
+}
+
 
 $errors = [];
 
@@ -36,7 +41,7 @@ $editId = (int) getTextFromUrl("id");
 if ($editId > 0) {
     $draft = getOrganizationOpportunity($connection, $organization["id"], $editId);
 
-    if ($draft != null && $draft["status"] == "draft") {
+    if ($draft != null && ($draft["status"] == "draft" || $draft["status"] == "rejected")) {
         $draftId = $draft["id"];
 
         if (count($old) == 0) {
@@ -429,6 +434,26 @@ include __DIR__ . "/../../components/header.php";
 
             <p class="popup-text">
                 Your volunteer opportunity is now live and available for volunteers to discover.
+            </p>
+
+        </div>
+
+    </div>
+<?php } ?>
+
+<?php if ($popup == "submitted") { ?>
+    <div class="popup-overlay">
+
+        <div class="toast-popup"
+             id="published-toast"
+             data-redirect="<?php echo BASE_URL; ?>/frontend/pages/organization/my-organization.php">
+
+            <span class="popup-icon"><i class="fa-regular fa-circle-check"></i></span>
+
+            <h2 class="popup-title">Opportunity submitted for review!</h2>
+
+            <p class="popup-text">
+                An admin will review it first. You will get a notification once it is approved.
             </p>
 
         </div>

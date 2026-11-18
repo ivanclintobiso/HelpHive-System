@@ -27,26 +27,24 @@ if (isset($_POST["mode"]) && $_POST["mode"] == "remove") {
 }
 
 
+include __DIR__ . "/../settings/connection-with-test-mode.php";
 include __DIR__ . "/../database-queries/opportunity-queries.php";
+include __DIR__ . "/../database-queries/saved-opportunity-queries.php";
+
+$userId = $_SESSION["user_id"];
 
 $opportunityExists = false;
 
-foreach (getAllOpportunities() as $opportunity) {
+foreach (getAllOpportunities($connection) as $opportunity) {
     if ($opportunity["id"] == $opportunityId) {
         $opportunityExists = true;
     }
 }
 
-if (!$opportunityExists) {
+if (!$opportunityExists && $mode != "remove") {
     echo json_encode(["status" => "error"]);
     exit;
 }
-
-
-include __DIR__ . "/../settings/connection-with-test-mode.php";
-include __DIR__ . "/../database-queries/saved-opportunity-queries.php";
-
-$userId = $_SESSION["user_id"];
 
 if ($mode == "remove") {
     removeSavedOpportunity($connection, $userId, $opportunityId);

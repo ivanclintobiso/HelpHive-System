@@ -11,6 +11,11 @@ if ($_SERVER["REQUEST_METHOD"] != "POST") {
     exit;
 }
 
+if (!isset($_SESSION["user_id"])) {
+    header("Location: " . $contactPage . "?auth=login");
+    exit;
+}
+
 
 function getPostText($name) {
     if (!isset($_POST[$name])) {
@@ -70,7 +75,7 @@ if (count($errors) > 0) {
 }
 
 
-include __DIR__ . "/../settings/database-connection.php";
+include __DIR__ . "/../settings/connection-with-test-mode.php";
 include __DIR__ . "/../database-queries/contact-queries.php";
 
 $isSaved = saveContactMessage($connection, $old);

@@ -11,7 +11,8 @@ function saveOrganization($connection, $organization) {
             "cause_areas" => $organization["cause_areas"],
             "city_province" => $organization["city_province"],
             "email" => $organization["email"],
-            "status" => "pending"
+            "status" => "approved",
+            "rejection_reason" => ""
         ];
 
         return true;
@@ -71,7 +72,7 @@ function getMyOrganization($connection, $userId) {
     }
 
     $sql = "SELECT id, logo, organization_name, organization_type, about, cause_areas,
-                   city_province, email, status
+                   city_province, email, status, rejection_reason
             FROM organizations
             WHERE user_id = ?
             ORDER BY id DESC
@@ -85,4 +86,3 @@ function getMyOrganization($connection, $userId) {
 
     return $result->fetch_assoc();
 }
-

@@ -64,7 +64,14 @@ $typeIcons = [
     "new_registration" => "fa-solid fa-user-group",
     "upcoming" => "fa-regular fa-calendar",
     "organization_submitted" => "fa-regular fa-building",
-    "opportunity_published" => "fa-regular fa-calendar-plus"
+    "opportunity_published" => "fa-regular fa-calendar-plus",
+    "opportunity_submitted" => "fa-regular fa-clock",
+    "opportunity_approved" => "fa-regular fa-circle-check",
+    "opportunity_rejected" => "fa-regular fa-circle-xmark",
+    "opportunity_removed" => "fa-regular fa-trash-can",
+    "organization_approved" => "fa-regular fa-circle-check",
+    "organization_declined" => "fa-regular fa-circle-xmark",
+    "organization_suspended" => "fa-solid fa-ban"
 ];
 
 
@@ -181,9 +188,27 @@ include __DIR__ . "/../../components/header.php";
                         <span><?php echo getTimeAgoText($notification["created_at"]); ?></span>
                     </div>
 
-                    <?php if ($notification["is_read"] == 0) { ?>
-                        <span class="notification-dot"></span>
-                    <?php } ?>
+                    <div class="notification-actions">
+
+                        <?php if ($notification["is_read"] == 0) { ?>
+                            <span class="notification-dot"></span>
+
+                            <form method="post" action="<?php echo BASE_URL; ?>/backend/form-actions/mark-notification-read-action.php">
+                                <input type="hidden" name="notification_id" value="<?php echo $notification["id"]; ?>">
+                                <input type="hidden" name="filter" value="<?php echo $filter; ?>">
+                                <button type="submit" class="notification-read-button">Mark as read</button>
+                            </form>
+                        <?php } ?>
+
+                        <form method="post" action="<?php echo BASE_URL; ?>/backend/form-actions/delete-notification-action.php">
+                            <input type="hidden" name="notification_id" value="<?php echo $notification["id"]; ?>">
+                            <input type="hidden" name="filter" value="<?php echo $filter; ?>">
+                            <button type="button" class="notification-delete-button" title="Delete notification">
+                                <i class="fa-regular fa-trash-can"></i>
+                            </button>
+                        </form>
+
+                    </div>
 
                 </div>
 
@@ -194,5 +219,21 @@ include __DIR__ . "/../../components/header.php";
     </main>
 
 </div>
+
+<div class="delete-overlay" id="delete-overlay">
+
+    <div class="delete-card">
+        <h2 class="delete-title">Delete notification?</h2>
+        <p class="delete-text">This notification will be removed permanently. This cannot be undone.</p>
+
+        <div class="delete-buttons">
+            <button type="button" class="delete-cancel" id="delete-cancel">Cancel</button>
+            <button type="button" class="delete-confirm" id="delete-confirm">Delete</button>
+        </div>
+    </div>
+
+</div>
+
+<script src="<?php echo BASE_URL; ?>/frontend/assets/js/notifications.js"></script>
 
 <?php include __DIR__ . "/../../components/footer.php"; ?>

@@ -4,6 +4,11 @@ include __DIR__ . "/../database-queries/notification-queries.php";
 
 $publishPage = BASE_URL . "/frontend/pages/organization/publish-opportunity.php";
 
+if ($organization["status"] != "approved") {
+    header("Location: " . $publishPage);
+    exit;
+}
+
 if ($_SERVER["REQUEST_METHOD"] != "POST") {
     header("Location: " . $publishPage);
     exit;
@@ -79,7 +84,7 @@ if ($opportunityId > 0) {
     $existingOpportunity = getOrganizationOpportunity($connection, $organization["id"], $opportunityId);
 }
 
-if ($existingOpportunity == null || $existingOpportunity["status"] != "draft") {
+if ($existingOpportunity == null || ($existingOpportunity["status"] != "draft" && $existingOpportunity["status"] != "rejected")) {
     $opportunityId = 0;
     $existingOpportunity = null;
 }
@@ -244,6 +249,12 @@ if ($endTime != "") {
     $endTime = $endTime . ":00";
 }
 
+$savedStatus = $status;
+
+if ($status == "published" && $connection != null) {
+    $savedStatus = "pending_review";
+}
+
 $opportunity = [
     "image" => $imageFileName,
     "title" => $title,
@@ -261,7 +272,7 @@ $opportunity = [
     "duration" => $duration,
     "skills" => $skills,
     "instructions" => $instructions,
-    "status" => $status
+    "status" => $savedStatus
 ];
 
 $savedId = 0;
@@ -279,6 +290,15 @@ if ($opportunityId > 0) {
 if ($savedId > 0) {
     unset($_SESSION["opportunity_errors"]);
     unset($_SESSION["opportunity_old"]);
+
+    if ($status == "published" && $savedStatus == "pending_review") {
+        createNotification($connection, $_SESSION["user_id"], "opportunity_submitted", "Opportunity submitted for review", "Your opportunity " . $title . " was sent to the admin for review.");
+
+        $_SESSION["opportunity_popup"] = "submitted";
+
+        header("Location: " . $publishPage);
+        exit;
+    }
 
     if ($status == "published") {
         createNotification($connection, $_SESSION["user_id"], "opportunity_published", "Opportunity published", "Your opportunity " . $title . " is now live for volunteers.");

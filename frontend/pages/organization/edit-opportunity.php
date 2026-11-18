@@ -18,8 +18,15 @@ if ($opportunity == null) {
     exit;
 }
 
-if ($opportunity["status"] == "draft") {
+if ($opportunity["status"] == "draft" || $opportunity["status"] == "rejected") {
     header("Location: " . BASE_URL . "/frontend/pages/organization/publish-opportunity.php?id=" . $opportunityId);
+    exit;
+}
+
+if ($opportunity["status"] != "published") {
+    $_SESSION["organization_message"] = "This opportunity cannot be edited right now.";
+
+    header("Location: " . $managePage);
     exit;
 }
 

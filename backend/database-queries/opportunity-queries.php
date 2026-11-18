@@ -1,185 +1,157 @@
 <?php
 
-function getAllOpportunities() {
-    $opportunities = [
-        [
-            "id" => 1,
-            "title" => "Coastal Cleanup Drive",
-            "organization" => "Blue Shores Initiative",
-            "cause" => "environment",
-            "location_type" => "On-site",
-            "city" => "Lapu-Lapu City",
-            "province" => "Cebu",
-            "distance_km" => 12,
-            "date_text" => "Sat, Oct 31, 2026 · 7:00–10:00 AM PHT (UTC+8)",
-            "date" => "2026-10-31",
-            "good_for" => "groups",
-            "duration" => "one-day",
-            "description" => "Collect litter along the coast to protect marine life and keep local beaches clean.",
-            "skills" => ["Physical Work"],
-            "image" => "temp-coastal-cleanup.jpg"
-        ],
-        [
-            "id" => 2,
-            "title" => "Animal Shelter Assistant",
-            "organization" => "Paws & Care Foundation",
-            "cause" => "animal",
-            "location_type" => "On-site",
-            "city" => "Cebu City",
-            "province" => "Cebu",
-            "distance_km" => 2,
-            "date_text" => "Sat, Oct 24, 2026 · 8 AM–12 PM PHT (UTC+8)",
-            "date" => "2026-10-24",
-            "good_for" => "beginners",
-            "duration" => "one-day",
-            "description" => "Help care for rescued animals by preparing food, cleaning their spaces, and giving them attention.",
-            "skills" => ["Animal Care", "Physical Work"],
-            "image" => "temp-animal-shelter.jpg"
-        ],
-        [
-            "id" => 3,
-            "title" => "Community Care Companion",
-            "organization" => "Kind Hearts Community",
-            "cause" => "community",
-            "location_type" => "On-site",
-            "city" => "Mandaue City",
-            "province" => "Cebu",
-            "distance_km" => 6,
-            "date_text" => "Sat, Nov 7, 2026 · 8 AM–12 PM PHT (UTC+8)",
-            "date" => "2026-11-07",
-            "good_for" => "beginners",
-            "duration" => "one-day",
-            "description" => "Support older adults through friendly conversations, simple activities, and community outreach.",
-            "skills" => ["Communication"],
-            "image" => "temp-community-care.jpg"
-        ],
-        [
-            "id" => 4,
-            "title" => "Weekend Reading Buddies",
-            "organization" => "Bright Futures Foundation",
-            "cause" => "education",
-            "location_type" => "On-site",
-            "city" => "Cebu City",
-            "province" => "Cebu",
-            "distance_km" => 3,
-            "date_text" => "Every Sat, Oct 24, 2026 · 7:00–10:00 AM PHT (UTC+8)",
-            "date" => "2026-10-24",
-            "good_for" => "students",
-            "duration" => "ongoing",
-            "description" => "Help children build reading skills through fun learning activities and one-on-one tutoring.",
-            "skills" => ["Teaching", "Communication"],
-            "image" => "temp-reading-buddies.jpg"
-        ],
-        [
-            "id" => 5,
-            "title" => "Environmental Awareness Creator",
-            "organization" => "Green Shift Media",
-            "cause" => "environment",
-            "location_type" => "Remote",
-            "city" => "Lapu-Lapu City",
-            "province" => "Cebu",
-            "distance_km" => 12,
-            "date_text" => "Sat, Oct 31, 2026 · 9 AM–12 PM PHT (UTC+8)",
-            "date" => "2026-10-31",
-            "good_for" => "individuals",
-            "duration" => "one-day",
-            "description" => "Create a digital infographic or awareness post about recycling, plastic pollution, or environmental conservation.",
-            "skills" => ["Digital Design"],
-            "image" => "temp-awareness-creator.jpg"
-        ],
-        [
-            "id" => 6,
-            "title" => "Tree Planting Day",
-            "organization" => "Green Cebu Movement",
-            "cause" => "environment",
-            "location_type" => "On-site",
-            "city" => "Talisay City",
-            "province" => "Cebu",
-            "distance_km" => 10,
-            "date_text" => "Sat, Nov 14, 2026 · 6:00–10:00 AM PHT (UTC+8)",
-            "date" => "2026-11-14",
-            "good_for" => "groups",
-            "duration" => "one-day",
-            "description" => "Plant native tree seedlings in the hills and help bring back the forest cover.",
-            "skills" => ["Physical Work"],
-            "image" => "temp-tree-planting.jpg"
-        ],
-        [
-            "id" => 7,
-            "title" => "Food Pack Distribution",
-            "organization" => "Share a Meal Cebu",
-            "cause" => "community",
-            "location_type" => "On-site",
-            "city" => "Cebu City",
-            "province" => "Cebu",
-            "distance_km" => 1,
-            "date_text" => "Sun, Nov 8, 2026 · 9 AM–1 PM PHT (UTC+8)",
-            "date" => "2026-11-08",
-            "good_for" => "groups",
-            "duration" => "one-day",
-            "description" => "Pack and hand out food boxes to families in need around the city.",
-            "skills" => ["Physical Work", "Communication"],
-            "image" => "temp-food-pack.jpg"
-        ],
-        [
-            "id" => 8,
-            "title" => "Online Math Tutor",
-            "organization" => "Bright Futures Foundation",
-            "cause" => "education",
-            "location_type" => "Remote",
-            "city" => "Cebu City",
-            "province" => "Cebu",
-            "distance_km" => 3,
-            "date_text" => "Every Wed, Nov 4, 2026 · 6:00–7:30 PM PHT (UTC+8)",
-            "date" => "2026-11-04",
-            "good_for" => "students",
-            "duration" => "ongoing",
-            "description" => "Tutor grade school students in math through weekly online sessions.",
-            "skills" => ["Teaching"],
-            "image" => "temp-online-tutor.jpg"
-        ],
-        [
-            "id" => 9,
-            "title" => "Weekend Dog Walker",
-            "organization" => "Paws & Care Foundation",
-            "cause" => "animal",
-            "location_type" => "On-site",
-            "city" => "Mandaue City",
-            "province" => "Cebu",
-            "distance_km" => 6,
-            "date_text" => "Sun, Nov 15, 2026 · 7–10 AM PHT (UTC+8)",
-            "date" => "2026-11-15",
-            "good_for" => "individuals",
-            "duration" => "one-day",
-            "description" => "Walk shelter dogs, give them exercise, and help them get used to people.",
-            "skills" => ["Animal Care"],
-            "image" => "temp-dog-walker.jpg"
-        ],
-        [
-            "id" => 10,
-            "title" => "Community Post Designer",
-            "organization" => "Kind Hearts Community",
-            "cause" => "community",
-            "location_type" => "Remote",
-            "city" => "Cebu City",
-            "province" => "Cebu",
-            "distance_km" => 2,
-            "date_text" => "Sat, Nov 21, 2026 · 1–4 PM PHT (UTC+8)",
-            "date" => "2026-11-21",
-            "good_for" => "beginners",
-            "duration" => "one-day",
-            "description" => "Design simple posts that share community events and volunteer calls.",
-            "skills" => ["Digital Design", "Communication"],
-            "image" => "temp-post-designer.jpg"
-        ]
+include_once __DIR__ . "/admin-queries.php";
+
+
+function getCardImageUrl($image) {
+    if ($image == "") {
+        return BASE_URL . "/frontend/assets/images/abstractbackground.png";
+    }
+
+    return BASE_URL . "/frontend/assets/uploads/opportunities/" . $image;
+}
+
+
+function makeCleanList($text) {
+    $cleanList = [];
+
+    foreach (explode(",", $text) as $part) {
+        $part = trim($part);
+
+        if ($part != "") {
+            $cleanList[] = $part;
+        }
+    }
+
+    return $cleanList;
+}
+
+
+function makeOpportunityDateText($row) {
+    if ($row["activity_date"] == "") {
+        return "Date to be announced";
+    }
+
+    $dateText = date("D, M j, Y", strtotime($row["activity_date"]));
+
+    if ($row["start_time"] != "" && $row["end_time"] != "") {
+        $startText = date("g:i A", strtotime($row["start_time"]));
+        $endText = date("g:i A", strtotime($row["end_time"]));
+
+        $dateText = $dateText . " · " . $startText . "–" . $endText . " PHT (UTC+8)";
+    }
+
+    return $dateText;
+}
+
+
+function makeOpportunityCard($row) {
+    $causes = makeCleanList($row["cause"]);
+    $goodForList = makeCleanList($row["good_for"]);
+    $skills = makeCleanList($row["skills"]);
+
+    $placeText = $row["location"] . " " . $row["city_province"] . " Philippines";
+
+    $city = $row["location"];
+    if ($city == "") {
+        $city = $row["city_province"];
+    }
+
+    $goodForText = "everyone";
+    if (count($goodForList) > 0) {
+        $goodForText = implode(", ", $goodForList);
+    }
+
+    return [
+        "id" => $row["id"],
+        "title" => $row["title"],
+        "organization" => $row["organization_name"],
+        "causes" => $causes,
+        "location_type" => $row["location_type"],
+        "city" => $city,
+        "place_text" => $placeText,
+        "date_text" => makeOpportunityDateText($row),
+        "date" => $row["activity_date"],
+        "good_for" => $goodForText,
+        "good_for_list" => $goodForList,
+        "duration" => $row["duration"],
+        "description" => $row["short_description"],
+        "skills" => $skills,
+        "skills_text" => $row["skills"],
+        "image_url" => getCardImageUrl($row["image"])
     ];
+}
+
+
+function getTestPublishedRows() {
+    $data = getTestAdminData();
+    $rows = [];
+
+    foreach ($data["opportunities"] as $opportunity) {
+        if ($opportunity["status"] != "published") {
+            continue;
+        }
+
+        $organizationStatus = "";
+        $organizationPlace = "";
+
+        foreach ($data["organizations"] as $organization) {
+            if ($organization["organization_name"] == $opportunity["organization_name"]) {
+                $organizationStatus = $organization["status"];
+                $organizationPlace = $organization["city_province"];
+            }
+        }
+
+        if ($organizationStatus != "approved") {
+            continue;
+        }
+
+        $opportunity["city_province"] = $organizationPlace;
+        $rows[] = $opportunity;
+    }
+
+    return $rows;
+}
+
+
+function getPublishedRows($connection) {
+    if ($connection == null) {
+        return getTestPublishedRows();
+    }
+
+    $sql = "SELECT p.id, p.image, p.title, p.cause, p.short_description, p.activity_date,
+                   p.location_type, p.start_time, p.end_time, p.location, p.good_for,
+                   p.duration, p.skills, o.organization_name, o.city_province
+            FROM opportunities p
+            INNER JOIN organizations o ON o.id = p.organization_id
+            WHERE p.status = 'published' AND o.status = 'approved'
+            ORDER BY p.activity_date IS NULL, p.activity_date ASC, p.id DESC";
+
+    $result = $connection->query($sql);
+
+    $rows = [];
+
+    while ($row = $result->fetch_assoc()) {
+        $rows[] = $row;
+    }
+
+    return $rows;
+}
+
+
+function getAllOpportunities($connection) {
+    $opportunities = [];
+
+    foreach (getPublishedRows($connection) as $row) {
+        $opportunities[] = makeOpportunityCard($row);
+    }
 
     return $opportunities;
 }
 
 
-function searchOpportunities($filters) {
-    $allOpportunities = getAllOpportunities();
+function searchOpportunities($connection, $filters) {
+    $allOpportunities = getAllOpportunities($connection);
     $results = [];
 
     foreach ($allOpportunities as $opportunity) {
@@ -189,7 +161,8 @@ function searchOpportunities($filters) {
             $searchableText = $opportunity["title"] . " "
                 . $opportunity["organization"] . " "
                 . $opportunity["description"] . " "
-                . implode(" ", $opportunity["skills"]);
+                . $opportunity["place_text"] . " "
+                . $opportunity["skills_text"];
 
             if (stripos($searchableText, $filters["keyword"]) === false) {
                 $isMatch = false;
@@ -199,15 +172,8 @@ function searchOpportunities($filters) {
         if ($filters["location"] != "") {
             $locationParts = explode(",", $filters["location"]);
             $mainLocation = trim($locationParts[0]);
-            $opportunityPlace = $opportunity["city"] . " " . $opportunity["province"] . " Philippines";
 
-            if (stripos($opportunityPlace, $mainLocation) === false) {
-                $isMatch = false;
-            }
-        }
-
-        if ($filters["distance"] != "") {
-            if ($opportunity["distance_km"] > $filters["distance"]) {
+            if (stripos($opportunity["place_text"], $mainLocation) === false) {
                 $isMatch = false;
             }
         }
@@ -219,13 +185,13 @@ function searchOpportunities($filters) {
         }
 
         if (count($filters["causes"]) > 0) {
-            if (!in_array($opportunity["cause"], $filters["causes"])) {
+            if (count(array_intersect($opportunity["causes"], $filters["causes"])) == 0) {
                 $isMatch = false;
             }
         }
 
         if (count($filters["good_for"]) > 0) {
-            if (!in_array($opportunity["good_for"], $filters["good_for"])) {
+            if (count(array_intersect($opportunity["good_for_list"], $filters["good_for"])) == 0) {
                 $isMatch = false;
             }
         }
@@ -245,8 +211,8 @@ function searchOpportunities($filters) {
         if (count($filters["skills"]) > 0) {
             $hasSelectedSkill = false;
 
-            foreach ($opportunity["skills"] as $skill) {
-                if (in_array($skill, $filters["skills"])) {
+            foreach ($filters["skills"] as $selectedSkill) {
+                if (stripos($opportunity["skills_text"], $selectedSkill) !== false) {
                     $hasSelectedSkill = true;
                 }
             }

@@ -400,3 +400,34 @@
         border-left: none;
     }
 }
+
+.avatar-box {
+    position: relative;
+    flex-shrink: 0;
+    width: 69px;
+    height: 69px;
+}
+
+.avatar-pencil {
+    display: none;
+    position: absolute;
+    right: -6px;
+    bottom: -6px;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    background-color: #f4bd35;
+    border-radius: 50%;
+    color: #1b2125;
+    font-size: 0.7rem;
+    cursor: pointer;
+}
+
+.profile-form.editing .avatar-pencil {
+    display: flex;
+}
+
+.photo-input {
+    display: none;
+}

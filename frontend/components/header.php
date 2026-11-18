@@ -18,7 +18,54 @@ if (isset($_SESSION["user_id"])) {
     $isLoggedIn = true;
 }
 
-$profileImageFile = __DIR__ . "/../assets/images/temp-profile.png";
+$isAdminUser = false;
+if ($isLoggedIn && isset($_SESSION["role"]) && $_SESSION["role"] == "admin") {
+    $isAdminUser = true;
+}
+
+if ($isAdminUser && strpos($_SERVER["PHP_SELF"], "/pages/admin/") === false) {
+    header("Location: " . BASE_URL . "/frontend/pages/admin/dashboard.php");
+    exit;
+}
+
+$logoLink = BASE_URL . "/frontend/pages/home.php";
+
+if ($isAdminUser) {
+    $logoLink = BASE_URL . "/frontend/pages/admin/dashboard.php";
+}
+
+$adminBellCount = 0;
+
+if ($isAdminUser) {
+    if (!isset($adminCounts)) {
+        include_once __DIR__ . "/../../backend/settings/connection-with-test-mode.php";
+        include_once __DIR__ . "/../../backend/database-queries/admin-queries.php";
+
+        $adminCounts = getAdminCounts($connection);
+    }
+
+    $adminBellCount = $adminCounts["total"];
+}
+
+$isBanned = false;
+$banReason = "";
+
+if ($isLoggedIn && isset($_SESSION["is_banned"]) && $_SESSION["is_banned"] == true) {
+    $isBanned = true;
+
+    if (isset($_SESSION["ban_reason"])) {
+        $banReason = $_SESSION["ban_reason"];
+    }
+}
+
+$profileImageName = "profile1-defaultrandomprofile.png";
+
+if (isset($_SESSION["profile_image"])) {
+    $profileImageName = $_SESSION["profile_image"];
+}
+
+$profileImageFile = __DIR__ . "/../assets/images/" . $profileImageName;
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,38 +99,61 @@ $profileImageFile = __DIR__ . "/../assets/images/temp-profile.png";
 <header class="site-header">
 
     <div class="header-left">
-        <a href="<?php echo BASE_URL; ?>/frontend/pages/home.php" class="header-logo">
+        <a href="<?php echo $logoLink; ?>" class="header-logo">
             <img src="<?php echo BASE_URL; ?>/frontend/assets/images/logo-home-page.png" alt="HelpHive logo">
         </a>
 
-        <nav class="header-nav">
-            <a href="<?php echo BASE_URL; ?>/frontend/pages/home.php"
-               class="<?php if ($currentPage == "home.php") { echo "active"; } ?>">
-                Home
-            </a>
+        <?php if ($isAdminUser) { ?>
 
-            <a href="<?php echo BASE_URL; ?>/frontend/pages/search.php"
-               class="<?php if ($currentPage == "search.php") { echo "active"; } ?>">
-                Search Opportunities
-            </a>
+            <nav class="header-nav">
+                <a href="<?php echo BASE_URL; ?>/frontend/pages/admin/dashboard.php"
+                   class="<?php if ($currentPage == "dashboard.php") { echo "active"; } ?>">
+                    Dashboard
+                </a>
+            </nav>
 
-            <a href="<?php echo BASE_URL; ?>/frontend/pages/organization/organization-intro.php"
-               class="<?php if ($currentPage == "organization-intro.php" || $currentPage == "register-organization.php") { echo "active"; } ?>">
-                Register Organization
-            </a>
-        </nav>
+        <?php } else { ?>
+
+            <nav class="header-nav">
+                <a href="<?php echo BASE_URL; ?>/frontend/pages/home.php"
+                   class="<?php if ($currentPage == "home.php") { echo "active"; } ?>">
+                    Home
+                </a>
+
+                <a href="<?php echo BASE_URL; ?>/frontend/pages/search.php"
+                   class="<?php if ($currentPage == "search.php") { echo "active"; } ?>">
+                    Search Opportunities
+                </a>
+
+                <a href="<?php echo BASE_URL; ?>/frontend/pages/organization/organization-intro.php"
+                   class="<?php if ($currentPage == "organization-intro.php" || $currentPage == "register-organization.php") { echo "active"; } ?>">
+                    Register Organization
+                </a>
+            </nav>
+
+        <?php } ?>
     </div>
 
     <div class="header-right">
 
-        <?php if ($isLoggedIn) { ?>
+        <?php if ($isAdminUser) { ?>
+
+            <?php include __DIR__ . "/admin-bell.php"; ?>
+
+            <a href="<?php echo BASE_URL; ?>/backend/form-actions/logout-action.php" class="header-auth-link logout-link">Log Out</a>
+
+        <?php } else if ($isLoggedIn) { ?>
+
+            <?php if (!$isBanned) { ?>
+                <?php include __DIR__ . "/user-bell.php"; ?>
+            <?php } ?>
 
             <div class="profile-menu" id="profile-menu">
 
                 <button type="button" class="profile-button" id="profile-button">
 
                     <?php if (file_exists($profileImageFile)) { ?>
-                        <img src="<?php echo BASE_URL; ?>/frontend/assets/images/temp-profile.png"
+                        <img src="<?php echo BASE_URL; ?>/frontend/assets/images/<?php echo $profileImageName; ?>"
                              alt="Profile picture"
                              class="profile-photo">
                     <?php } else { ?>
@@ -174,8 +244,27 @@ if (!$isLoggedIn) {
 
 if ($isLoggedIn) {
     include __DIR__ . "/logout-modal.php";
+}
+
+if ($isLoggedIn && !$isAdminUser) {
 ?>
     <script src="<?php echo BASE_URL; ?>/frontend/assets/js/profile-menu.js"></script>
+<?php
+}
+
+if ($isLoggedIn && !$isAdminUser && !$isBanned) {
+?>
+    <script src="<?php echo BASE_URL; ?>/frontend/assets/js/user-bell.js"></script>
+<?php
+}
+
+if ($isBanned) {
+    include __DIR__ . "/ban-modal.php";
+}
+
+if ($isAdminUser) {
+?>
+    <script src="<?php echo BASE_URL; ?>/frontend/assets/js/admin-bell.js"></script>
 <?php
 }
 ?>

@@ -178,6 +178,15 @@
     color: #b42318;
 }
 
+.status-cancelled {
+    background-color: #ececec;
+}
+
+.status-cancelled i,
+.status-cancelled strong {
+    color: #555555;
+}
+
 .application-line {
     margin: 8px 0 12px;
     border: none;
